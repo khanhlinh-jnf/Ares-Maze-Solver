@@ -1,0 +1,15 @@
+BFS
+Steps: 61, Weight: 332, Node: 4440, Time (ms): 5997.0
+lulluRRRlluurrDrDLLruulldDldRurDDrrUruLLLruulldDrdLrdrrddllUU
+DFS
+Steps: 345, Weight: 1274, Node: 2281, Time (ms): 2004.69
+rddlluuulluRRRlluurrDrDLrDrullLrrrdlDllddrrUdlluuulluRRluurrdrdrdlDllullurrRllldrrdrruruLLrrdldllddrrUUUdllulluruurrddLrurDlldlUrrrDrullllldrrdddrruUUruLrdldllullurrRuullDDrrurDlllldRlurrrrDDllddrrUUUruLLrulullddRRlDllurrrurDlllldrrDrrddllUdrruuUruLLrulullddRlldrrDrrurulLLrrrdldllulUrrrrdldddllUdrruuurulluullDDrrrrdldddlluUrrurulllDLrDrrddllUU
+UCS
+Steps: 67, Weight: 320, Node: 4088, Time (ms): 5538.01
+lulluRRRlluurrDrDLLddrrUruLLuulldDldRuuurrddLruulldDrDLrurrddddlluU
+A*
+Steps: 67, Weight: 320, Node: 3240, Time (ms): 3246.79
+lulluRRRlluurrDrDLLddrrUruLLuulldDldRuuurrddLruulldDrDLurrrddddlluU
+GBFS
+Steps: 79, Weight: 332, Node: 955, Time (ms): 709.36
+lulluRRRldlluruurrDrDLLruulldDrddrrUruLLuullddldRuuurrddLruulldDrDLurrrddddlluU
