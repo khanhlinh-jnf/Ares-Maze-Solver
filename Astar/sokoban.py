@@ -136,7 +136,8 @@ class Maze:
     def is_deadlock(self):
         for stone in self.stones:
             i, j = stone.position
-            if self.matrix[i][j] == "*": continue
+            if self.matrix[i][j] == "*":
+                continue
             # left - up corner
             if self.matrix[i - 1][j] in ["#", "$", "*"] and self.matrix[i][j - 1] in [
                 "#",
@@ -296,7 +297,7 @@ def compute_heuristic(maze):
 def astar_search(maze):
     print("A*")
     start_time = time.time()
-    
+
     if maze.is_deadlock():
         end_time = time.time()
         str_node = "Node: 0"
@@ -310,12 +311,12 @@ def astar_search(maze):
     node = 1
 
     while not frontier.empty():
-        print(node, end="\r")
+        print("Node traversal: ", node, end="\r")
         current = frontier.get()
         explored.append(str(current.get_matrix()))
 
         if current.goal_state():
-            print("Complete..........")
+            print("Complete......................")
             end_time = time.time()
             str_step = "Steps: " + str(len(current.path_of_solution))
             str_cost = "Weight: " + str(current.real_cost)
@@ -349,7 +350,7 @@ def astar_search(maze):
                 frontier.put(new_maze)
                 node += 1
 
-    print("Complete..........")
+    print("Complete......................")
     end_time = time.time()
     str_node = "Node: " + str(node)
     str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
@@ -359,7 +360,7 @@ def astar_search(maze):
 def gbfs_search(maze):
     print("GBFS")
     start_time = time.time()
-    
+
     if maze.is_deadlock():
         end_time = time.time()
         str_node = "Node: 0"
@@ -373,12 +374,12 @@ def gbfs_search(maze):
     node = 1
 
     while not frontier.empty():
-        print(node, end="\r")
+        print("Node traversal: ", node, end="\r")
         current = frontier.get()
         explored.append(str(current.get_matrix()))
 
         if current.goal_state():
-            print("Complete..........")
+            print("Complete......................")
             end_time = time.time()
             str_step = "Steps: " + str(len(current.path_of_solution))
             str_cost = "Weight: " + str(current.real_cost)
@@ -412,7 +413,7 @@ def gbfs_search(maze):
                 frontier.put(new_maze)
                 node += 1
 
-    print("Complete..........")
+    print("Complete......................")
     end_time = time.time()
     str_node = "Node: " + str(node)
     str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
@@ -422,7 +423,7 @@ def gbfs_search(maze):
 def ucs_search(maze):
     print("UCS")
     start_time = time.time()
-    
+
     if maze.is_deadlock():
         end_time = time.time()
         str_node = "Node: 0"
@@ -436,12 +437,12 @@ def ucs_search(maze):
     node = 1
 
     while not frontier.empty():
-        print(node, end="\r")
+        print("Node traversal: ", node, end="\r")
         current = frontier.get()
         explored.append(str(current.get_matrix()))
 
         if current.goal_state():
-            print("Complete..........")
+            print("Complete......................")
             end_time = time.time()
             str_step = "Steps: " + str(len(current.path_of_solution))
             str_cost = "Weight: " + str(current.real_cost)
@@ -475,7 +476,7 @@ def ucs_search(maze):
                 frontier.put(new_maze)
                 node += 1
 
-    print("Complete..........")
+    print("Complete......................")
     end_time = time.time()
     str_node = "Node: " + str(node)
     str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
@@ -485,7 +486,7 @@ def ucs_search(maze):
 def bfs_search(maze):
     print("BFS")
     start_time = time.time()
-    
+
     if maze.is_deadlock():
         end_time = time.time()
         str_node = "Node: 0"
@@ -499,12 +500,12 @@ def bfs_search(maze):
     node = 1
 
     while not frontier.empty():
-        print(node, end="\r")
+        print("Node traversal: ", node, end="\r")
         current = frontier.get()
         explored.append(str(current.get_matrix()))
 
         if current.goal_state():
-            print("Complete..........")
+            print("Complete......................")
             end_time = time.time()
             str_step = "Steps: " + str(len(current.path_of_solution))
             str_cost = "Weight: " + str(current.real_cost)
@@ -533,7 +534,7 @@ def bfs_search(maze):
             new_maze.real_cost += cost
             new_maze.path_of_solution += direction_custom
             if new_maze.goal_state():
-                print("Complete..........")
+                print("Complete......................")
                 end_time = time.time()
                 str_step = "Steps: " + str(len(new_maze.path_of_solution))
                 str_cost = "Weight: " + str(new_maze.real_cost)
@@ -554,7 +555,7 @@ def bfs_search(maze):
                 frontier.put(new_maze)
                 node += 1
 
-    print("Complete..........")
+    print("Complete......................")
     end_time = time.time()
     str_node = "Node: " + str(node)
     str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
@@ -578,12 +579,12 @@ def dfs_search(maze):
     node = 1
 
     while not frontier.empty():
-        print(node, end="\r")
+        print("Node traversal: ", node, end="\r")
         current = frontier.get()
         explored.append(str(current.get_matrix()))
 
         if current.goal_state():
-            print("Complete..........")
+            print("Complete......................")
             end_time = time.time()
             str_step = "Steps: " + str(len(current.path_of_solution))
             str_cost = "Weight: " + str(current.real_cost)
@@ -612,7 +613,7 @@ def dfs_search(maze):
             new_maze.real_cost += cost
             new_maze.path_of_solution += direction_custom
             if new_maze.goal_state():
-                print("Complete..........")
+                print("Complete......................")
                 end_time = time.time()
                 str_step = "Steps: " + str(len(new_maze.path_of_solution))
                 str_cost = "Weight: " + str(new_maze.real_cost)
@@ -633,19 +634,39 @@ def dfs_search(maze):
                 frontier.put(new_maze)
                 node += 1
 
-    print("Complete..........")
+    print("Complete......................")
     end_time = time.time()
     str_node = "Node: " + str(node)
     str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
     return str_node + str_time + "\n" + "No solution"
 
-for n in range(6, 7):
-    print("\nTest case: ", n)
-    game = Maze()
-    file_in = "input-0" + str(n) + ".txt" if int(n) < 10 else "input-" + str(n) + ".txt"
-    game.load_maze("sokoban_input\\"+file_in)
-    print("UCS")
+
+game = Maze()
+n = int(input("Enter the number of level: "))
+file_name = (
+    "sokoban_input\\input-0" + str(n) + ".txt"
+    if n < 10
+    else "sokoban_input\\input-" + str(n) + ".txt"
+)
+game.load_maze(file_name)
+print("1. BFS")
+print("2. DFS")
+print("3. UCS")
+print("4. GBFS")
+print("5. A*")
+choice = input("Enter your choice: ")
+if choice == "1":
+    print(bfs_search(copy.deepcopy(game)))
+elif choice == "2":
+    print(dfs_search(copy.deepcopy(game)))
+elif choice == "3":
     print(ucs_search(copy.deepcopy(game)))
+elif choice == "4":
+    print(gbfs_search(copy.deepcopy(game)))
+elif choice == "5":
+    print(astar_search(copy.deepcopy(game)))
+else:
+    print("Invalid choice")
 
 # game = Maze()
 # game.load_maze("sokoban_input\\input-04.txt")
