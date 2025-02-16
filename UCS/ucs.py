@@ -22,6 +22,12 @@ def GetPositions(grid):
                 positions["Stones"].append((r, c))
             elif cell == ".":
                 positions["Switches"].append((r, c))
+            elif cell == "*":
+                positions["Stones"].append((r, c))
+                positions["Switches"].append((r, c))
+            elif cell == "+":
+                positions["Ares"] = (r, c)
+                positions["Switches"].append((r, c))
     return positions
 
 def validMove(grid, r, c):
@@ -98,74 +104,101 @@ def SaveOutput(OutputPath, cost, path, nodeExpand, elapsedTime, memoryUsed):
             f.write(f"UCS\nSteps: {len(path)}, Weight: {cost}, Node: {nodeExpand}, Time (ms): {elapsedTime * 1000}, Memory (MB): {memoryUsed}\n")
             f.write(f"{path}\n")
 
+def FillPositions(grid, ares_pos, stones_pos, switches_pos):
+    for idx in switches_pos:
+        grid[idx[0]][idx[1]] = "."
+    for idx in stones_pos:
+        if idx in switches_pos:
+            grid[idx[0]][idx[1]] = "*"
+        else:
+            grid[idx[0]][idx[1]] = "$"
+    if ares_pos in switches_pos:
+        grid[ares_pos[0]][ares_pos[1]] = "+"
+    else:
+        grid[ares_pos[0]][ares_pos[1]] = "@"
+
+def DisplayGrid(grid):
+    for r, row in enumerate(grid):
+        for c, cell in enumerate(row):
+            print(cell, end="")
+        print()
+
+def ResetGrid(grid):
+    gridLayout = grid
+    for r, row in enumerate(grid):
+        for c, cell in enumerate(row):
+            if cell == "#":
+                gridLayout[r][c] = "#"
+            else:
+                gridLayout[r][c] = " "
+
+    return gridLayout
+
 def ShowPath(path, grid):
     positions = GetPositions(grid)
     ares_pos = positions["Ares"]
     stones = positions["Stones"]
     switches = positions["Switches"]
-    step = 0
+    step = 1
+    gridLayout = ResetGrid(grid)
+    
+    print(f"step: 0")
+    FillPositions(gridLayout, ares_pos, stones, switches)
+    DisplayGrid(gridLayout)
+    gridLayout = ResetGrid(grid)
+
     for move in path:
         print(f"step: {step}")
         step += 1
-        grid[ares_pos[0]][ares_pos[1]] = " "
-        if ares_pos in switches:
-            grid[ares_pos[0]][ares_pos[1]] = "."
-        if move == "u" or move == "U":
-            ax = ares_pos[0] - 1
-            ay = ares_pos[1]
-            if grid[ax][ay] == "$":
-                sx = ax - 1
-                sy = ay
-                grid[sx][sy] = "$"
-            grid[ax][ay] = "@"
-        elif move == "d" or move == "D":
-            ax = ares_pos[0] + 1
-            ay = ares_pos[1]
-            if grid[ax][ay] == "$":
-                sx = ax + 1
-                sy = ay
-                grid[sx][sy] = "$"
-            grid[ax][ay] = "@"
-        elif move == "l" or move == "L":
-            ax = ares_pos[0]
-            ay = ares_pos[1] - 1
-            if grid[ax][ay] == "$":
-                sx = ax
-                sy = ay - 1
-                grid[sx][sy] = "$"
-            grid[ax][ay] = "@"
+        if move == "l" or move == "L":
+            ares_pos = (ares_pos[0], ares_pos[1] - 1)
+            if ares_pos in stones:
+                idx = stones.index(ares_pos)
+                stones[idx] = (ares_pos[0], ares_pos[1] - 1)
+            FillPositions(gridLayout, ares_pos, stones, switches)
+            DisplayGrid(gridLayout)
+            gridLayout = ResetGrid(grid)
         elif move == "r" or move == "R":
-            ax = ares_pos[0]
-            ay = ares_pos[1] + 1
-            if grid[ax][ay] == "$":
-                sx = ax
-                sy = ay + 1
-                grid[sx][sy] = "$"
-            grid[ax][ay] = "@"
-        ares_pos = (ax, ay)
-        for r, row in enumerate(grid):
-            for c, cell in enumerate(row):
-                print(cell, end="")
-            print()
-        
-        
-                
+            ares_pos = (ares_pos[0], ares_pos[1] + 1)
+            if ares_pos in stones:
+                idx = stones.index(ares_pos)
+                stones[idx] = (ares_pos[0], ares_pos[1] + 1)
+            FillPositions(gridLayout, ares_pos, stones, switches)
+            DisplayGrid(gridLayout)
+            gridLayout = ResetGrid(grid)
+        elif move == "u" or move == "U":
+            ares_pos = (ares_pos[0] - 1, ares_pos[1])
+            if ares_pos in stones:
+                idx = stones.index(ares_pos)
+                stones[idx] = (ares_pos[0] - 1, ares_pos[1])
+            FillPositions(gridLayout, ares_pos, stones, switches)
+            DisplayGrid(gridLayout)
+            gridLayout = ResetGrid(grid)
+        elif move == "d" or move == "D":
+            ares_pos = (ares_pos[0] + 1, ares_pos[1])
+            if ares_pos in stones:
+                idx = stones.index(ares_pos)
+                stones[idx] = (ares_pos[0] + 1, ares_pos[1])
+            FillPositions(gridLayout, ares_pos, stones, switches)
+            DisplayGrid(gridLayout)
+            gridLayout = ResetGrid(grid)
 
 
 if __name__ == "__main__":
     input_path = "input/input-01.txt"
     output_path = "output/output-01.txt"
+    level = int(input("Enter level (1->10): "))
 
-    print("Enter level(1->9):")
-    level = int(input())
-
-    if level < 1 or level > 9:
+    if level < 1:
         print("Invalid level")
         exit()
     
     if level < 10:
         input_path = f"input/input-0{level}.txt"
         output_path = f"output/output-0{level}.txt"
+    else:
+        input_path = f"input/input-{level}.txt"
+        output_path = f"output/output-{level}.txt"
 
     stone_weights, grid = ReadInput(input_path)
 
