@@ -1,5 +1,4 @@
 import queue
-import copy
 import time
 import tracemalloc
 
@@ -28,6 +27,19 @@ class Maze:
 
     def __lt__(self, other):
         return self.real_and_heuristic < other.real_and_heuristic
+    
+    def clone(self):
+        new_maze = Maze()
+        new_maze.real_and_heuristic = self.real_and_heuristic
+        new_maze.real_cost = self.real_cost
+        new_maze.heuristic = self.heuristic
+        new_maze.path_of_solution = self.path_of_solution    
+        for row in self.matrix:
+            new_maze.matrix.append(row.copy())
+        for stone in self.stones:
+            new_maze.stones.append(Stone(stone.weight, stone.position))
+        new_maze.Ares = self.Ares
+        return new_maze
 
     def add_stone(self, stone):
         self.stones.append(stone)
@@ -304,16 +316,16 @@ def astar_search(maze):
         str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
         return str_node + str_time + "\n" + "No solution"
 
-    start = copy.deepcopy(maze)
+    start = maze.clone()
     frontier = queue.PriorityQueue()
     frontier.put(start)
-    explored = []
+    explored = set()
     node = 1
 
     while not frontier.empty():
         print("Node traversal: ", node, end="\r")
         current = frontier.get()
-        explored.append(str(current.get_matrix()))
+        explored.add(current.get_matrix())
 
         if current.goal_state():
             print("Complete......................")
@@ -340,7 +352,7 @@ def astar_search(maze):
                 valid_moves.append(direction)
 
         for direction in valid_moves:
-            new_maze = copy.deepcopy(current)
+            new_maze = current.clone()
             direction_custom, cost = new_maze.Ares_move(direction)
             new_maze.real_cost += cost
             new_maze.heuristic = compute_heuristic(new_maze)
@@ -367,16 +379,16 @@ def gbfs_search(maze):
         str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
         return str_node + str_time + "\n" + "No solution"
 
-    start = copy.deepcopy(maze)
+    start = maze.clone()
     frontier = queue.PriorityQueue()
     frontier.put(start)
-    explored = []
+    explored = set()
     node = 1
 
     while not frontier.empty():
         print("Node traversal: ", node, end="\r")
         current = frontier.get()
-        explored.append(str(current.get_matrix()))
+        explored.add(current.get_matrix())
 
         if current.goal_state():
             print("Complete......................")
@@ -403,7 +415,7 @@ def gbfs_search(maze):
                 valid_moves.append(direction)
 
         for direction in valid_moves:
-            new_maze = copy.deepcopy(current)
+            new_maze = current.clone()
             direction_custom, cost = new_maze.Ares_move(direction)
             new_maze.real_cost += cost
             new_maze.heuristic = compute_heuristic(new_maze)
@@ -430,16 +442,16 @@ def ucs_search(maze):
         str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
         return str_node + str_time + "\n" + "No solution"
 
-    start = copy.deepcopy(maze)
+    start = maze.clone()
     frontier = queue.PriorityQueue()
     frontier.put(start)
-    explored = []
+    explored = set()
     node = 1
 
     while not frontier.empty():
         print("Node traversal: ", node, end="\r")
         current = frontier.get()
-        explored.append(str(current.get_matrix()))
+        explored.add(current.get_matrix())
 
         if current.goal_state():
             print("Complete......................")
@@ -466,7 +478,7 @@ def ucs_search(maze):
                 valid_moves.append(direction)
 
         for direction in valid_moves:
-            new_maze = copy.deepcopy(current)
+            new_maze = current.clone()
             direction_custom, cost = new_maze.Ares_move(direction)
             new_maze.real_cost += cost
             new_maze.heuristic = 0
@@ -489,20 +501,21 @@ def bfs_search(maze):
 
     if maze.is_deadlock():
         end_time = time.time()
-        str_node = "Node: 0"
+        str_node = "Node: 0, "
         str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
         return str_node + str_time + "\n" + "No solution"
 
-    start = copy.deepcopy(maze)
+    start = maze.clone()
     frontier = queue.Queue()
     frontier.put(start)
-    explored = []
+    # using set to check if the state is explored
+    explored = set()
     node = 1
 
     while not frontier.empty():
         print("Node traversal: ", node, end="\r")
         current = frontier.get()
-        explored.append(str(current.get_matrix()))
+        explored.add(str(current.get_matrix()))
 
         if current.goal_state():
             print("Complete......................")
@@ -529,7 +542,7 @@ def bfs_search(maze):
                 valid_moves.append(direction)
 
         for direction in valid_moves:
-            new_maze = copy.deepcopy(current)
+            new_maze = current.clone()
             direction_custom, cost = new_maze.Ares_move(direction)
             new_maze.real_cost += cost
             new_maze.path_of_solution += direction_custom
@@ -558,7 +571,7 @@ def bfs_search(maze):
     print("Complete......................")
     end_time = time.time()
     str_node = "Node: " + str(node)
-    str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
+    str_time = ", Time (ms): " + str(round((end_time - start_time) * 1000, 2))
     return str_node + str_time + "\n" + "No solution"
 
 
@@ -572,16 +585,16 @@ def dfs_search(maze):
         str_time = "Time (ms): " + str(round((end_time - start_time) * 1000, 2))
         return str_node + str_time + "\n" + "No solution"
 
-    start = copy.deepcopy(maze)
+    start = maze.clone()
     frontier = queue.LifoQueue()
     frontier.put(start)
-    explored = []
+    explored = set()
     node = 1
 
     while not frontier.empty():
         print("Node traversal: ", node, end="\r")
         current = frontier.get()
-        explored.append(str(current.get_matrix()))
+        explored.add(current.get_matrix())
 
         if current.goal_state():
             print("Complete......................")
@@ -608,7 +621,7 @@ def dfs_search(maze):
                 valid_moves.append(direction)
 
         for direction in valid_moves:
-            new_maze = copy.deepcopy(current)
+            new_maze = current.clone()
             direction_custom, cost = new_maze.Ares_move(direction)
             new_maze.real_cost += cost
             new_maze.path_of_solution += direction_custom
@@ -656,31 +669,14 @@ print("4. GBFS")
 print("5. A*")
 choice = input("Enter your choice: ")
 if choice == "1":
-    print(bfs_search(copy.deepcopy(game)))
+    print(bfs_search(game))
 elif choice == "2":
-    print(dfs_search(copy.deepcopy(game)))
+    print(dfs_search(game))
 elif choice == "3":
-    print(ucs_search(copy.deepcopy(game)))
+    print(ucs_search(game))
 elif choice == "4":
-    print(gbfs_search(copy.deepcopy(game)))
+    print(gbfs_search(game))
 elif choice == "5":
-    print(astar_search(copy.deepcopy(game)))
+    print(astar_search(game))
 else:
     print("Invalid choice")
-
-# game = Maze()
-# game.load_maze("sokoban_input\\input-04.txt")
-# print(bfs_search(copy.deepcopy(game)))
-
-# game = Maze()
-# game.load_maze("sokoban_input\\input-06.txt")
-# str = "luRuUruRldlddRRdrruLLLrruuruulDDDuulldlluRRRldldDlddrUUUdrrdrruLLLrruuruulDlllldRdDlddrUUUdrrruUruL"
-# cost = 0
-# count = 0
-# for i in str:
-#     cost += game.Ares_move(i.upper())[1]
-# print("Steps: ", len(str))
-# print("Cost: ", cost)
-# game.print_map()
-# if game.is_deadlock():
-#     print("Deadlock")
