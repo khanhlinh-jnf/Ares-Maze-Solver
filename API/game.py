@@ -63,6 +63,16 @@ class Game:
                 sys.stdout.flush()
             sys.stdout.write('\n')
 
+    def reset(self,original_matrix):
+        self.heuristic = 0
+        self.pathSol = ""
+        self.stack = []
+        self.matrix = copy.deepcopy(original_matrix)
+        self.width = 0
+        self.width, self.height = self.load_size()
+        self.step = 0
+
+
     def get_content(self,x,y):
         return self.matrix[y][x]
 
@@ -220,3 +230,4 @@ class Game:
                 self.set_content(current[0],current[1],'.')
                 self.set_content(current[0]+x,current[1]+y,'+')
                 if save: self.stack.append((x,y,True))
+

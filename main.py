@@ -13,53 +13,82 @@ def main():
     level = StartGame()
     game = Game(map_open(level))
     size = game.load_size()
-    screen = pygame.display.set_mode(size)
+    width = size[0]
+    height = size[1]
+    header_height = 32
+    footer_height = 54
+    screen = pygame.display.set_mode((width, height + header_height + footer_height))
     sol = ""
     i = 0
     flagAuto = 0
-    width = game.get_width()
-    height = 32
+    reset_matrix = copy.deepcopy(game.get_matrix())
+
 
     while True:
-      print_game(game.get_matrix(),screen)
-      display_header(width, height, screen, game.get_step())
+        print_game(game.get_matrix(),screen)
+        display_header(width, header_height, screen, game.get_step())
+        display_footer(width, height + header_height, footer_height, screen)
 
-      if sol == "NoSol":
-          display_end(screen,"Cannot")
-      if sol == "TimeOut":
-          display_end(screen,"Out")
-      if game.is_completed():
-          display_end(screen,"Done")
+        if sol == "NoSol":
+            display_end(screen,"Cannot")
+        if sol == "TimeOut":
+            display_end(screen,"Out")
+        if game.is_completed():
+            display_end(screen,"Done")
 
-      for event in pygame.event.get():
-          if event.type == pygame.QUIT: sys.exit(0)
-          elif event.type == pygame.KEYDOWN:
-              # if event.key == pygame.K_a:
-              #     sol = AstarSolution(game)
-              #     flagAuto = 1
-              # elif event.key == pygame.K_b:
-              #     sol = BFSsolution(game)
-              #     flagAuto = 1
-              if event.key == pygame.K_UP: 
-                  game.move(0,-1, True)
-              elif event.key == pygame.K_DOWN: 
-                  game.move(0,1, True)
-              elif event.key == pygame.K_LEFT: 
-                  game.move(-1,0, True)
-              elif event.key == pygame.K_RIGHT: 
-                  game.move(1,0, True)
-              elif event.key == pygame.K_q: sys.exit(0)
-              elif event.key == pygame.K_d: 
-                  game.unmove()
-              elif event.key == pygame.K_c: sol = ""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_b:
+                    sol = BFS(game)
+                    flagAuto = 1
+                '''if event.key == pygame.K_1:
+                   sol = BFS(game)
+                   flagAuto = 1
+                elif event.key == pygame.K_2:
+                   sol = DFS(game)
+                   flagAuto = 1
+                elif event.key == pygame.K_3:
+                   sol = UCS(game)
+                   flagAuto = 1
+                elif event.key == pygame.K_4:
+                   sol = AStar(game)
+                   flagAuto = 1
+                elif event.key == pygame.K_5:
+                   sol = Greedy(game)
+                   flagAuto = 1
+                elif event.key == pygame.K_6:
+                     sol = Dijkstra(game)
+                     flagAuto = 1
+                '''
+                if event.key == pygame.K_UP: 
+                    game.move(0,-1, True)
+                elif event.key == pygame.K_DOWN: 
+                    game.move(0,1, True)
+                elif event.key == pygame.K_LEFT: 
+                    game.move(-1,0, True)
+                elif event.key == pygame.K_RIGHT: 
+                    game.move(1,0, True)
+                elif event.key == pygame.K_q: 
+                    sys.exit(0)
+                elif event.key == pygame.K_d: 
+                    game.unmove()
+                elif event.key == pygame.K_c: 
+                    sol = ""
+                elif event.key == pygame.K_p:
+                    flagAuto = 1 - flagAuto #pause
+                elif event.key == pygame.K_r:
+                    game.reset(reset_matrix)
 
-      if (flagAuto) and (i < len(sol)):
-          playByBot(game,sol[i])
-          i += 1
-          if i == len(sol): flagAuto = 0
-          time.sleep(0.1)
+        if (flagAuto) and (i < len(sol)):
+            playByBot(game,sol[i])
+            i += 1
+            if i == len(sol): 
+                flagAuto = 0
+            time.sleep(0.2)
 
-      pygame.display.update()
+        pygame.display.update()
     
 if __name__ == '__main__':
     main()
