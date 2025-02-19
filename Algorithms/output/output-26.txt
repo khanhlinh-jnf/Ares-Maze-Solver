@@ -1,0 +1,21 @@
+BFS
+Step: 133, Weight: 1291, Node: 30576, Time (ms): 2355.67, Memory (MB): 4.27
+dllLdlluRRRRdrUUUruulDllDDuurrDDDrddlUUlLLdlluRuuRlddRRRdrruLUUruulDllDurrDDDrddlUUUUruLdddLLLdlluRRRRdrUUUddlllluurrDullddrRRdrruLLL
+DFS
+Step: 681, Weight: 3925, Node: 20806, Time (ms): 1733.57, Memory (MB): 3.35
+drdllulLrrruurulllDurrrdlddrdllulldlluRRRRlUdrdrUUUruulDllDDuurrDDDrddlUluLrdrruLuurullldddLrRlldlluRRRuuurrrdldDrddlUULrUdrdlluLrruUruLrdlddrdllulLruuuRldddrruuruulDlldddldlluRRRRllluuRlddrrrdrruLLruUruulDllDllddrRRllluurrurrDrullldllddrrrdrruLLrUdrdlluLrruUruLrdlddrdllulLdlluRRRRllluurruRldllddrrrdrruLLruuruulDDrullldllddrRlluurrurrrdlDDLrrddlUluLrdrUrdllulLrrrUdrdllulldlluRuurrurrDDDllLrrrrddlUlulldlUrrrdrruLLLLrUdldlluRRRRdrUUUruulDllDDuurrDDDrddlUluLrdrruLuurullldddLrRlldlluRRRuullDurrddldlluRuurrurrrdldDrddlUUUUruulDlldddRlLrrdrruLuUruulDlldddldlUrrRluullDurrurrDrullldddldlUrrrdrruLLrUdrdlluLrruUruLrdlddrdllulLdlluRRRRluullDurrddrdrUrdllulldlluRRRRdrruLLrUdrdlluLrruU
+UCS
+Step: 133, Weight: 1155, Node: 30547, Time (ms): 3859.56, Memory (MB): 3.87
+dllLdlluRRRRdrUUUruulDllDDuurrDDDrddlUUlLLdlluRuuRlddRRRdrruLUUruulDllDllddrrRdrruLuUruLdddLLLdlluRRRRdrUlllluurrDullddrRRdrruLLLrrUU
+A*
+Step: 133, Weight: 1155, Node: 23007, Time (ms): 6936.31, Memory (MB): 3.13
+dllLdlluRRRRdrUUUruulDllDDuurrDDDrddlUUlLLdlluRuuRlddRRRdrruLUUruulDllDllddrrRdrruLuUruLdddLLLdlluRRRRdrUlllluurrDullddrRRdrruLUUddLL
+GBFS
+Step: 149, Weight: 1247, Node: 10630, Time (ms): 2466.89, Memory (MB): 1.36
+dllLdlluRRRRdrUUUruulDllDDuurrDDDlLrrrddlUUUUddllLdlluRuuRlddRRRdrruLLLrruuruulDllDllddRRRdrruLLLrruUruLdddllLdlluRRRRdrUUUddlllluurrDullddrRRdrruLLL
+Swarm
+Step: 145, Weight: 1167, Node: 17794, Time (ms): 3817.62, Memory (MB): 2.48
+dllLdlluRRRRdrUUUruulDllDDuurrDDDlLrrrddlUUUUddllLdlluRuuRlddRRRdrruLuuruulDllDllddrrRdrruLLLrruUruLdddllLdlluRRRRdrUUUddlllluurrDullddrRRdrruLLL
+Convergent Swarm
+Step: 149, Weight: 1247, Node: 9367, Time (ms): 2498.46, Memory (MB): 1.15
+dllLdlluRRRRdrUUUruulDllDDuurrDDDlLrrrddlUUUUddllLdlluRuuRlddRRRdrruLLLrruuruulDllDllddRRRdrruLLLrruUruLdddllLdlluRRRRdrUUUddlllluurrDullddrRRdrruLLL
