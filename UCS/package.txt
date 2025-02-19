@@ -1,4 +1,0 @@
-dependency:
-    - psutil
-    - time
-    - heapq

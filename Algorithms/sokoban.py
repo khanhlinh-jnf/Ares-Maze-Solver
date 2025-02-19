@@ -124,12 +124,12 @@ def bfs(file_path):
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
             return {
-                "Step: ": len(path),
-                "Weight: ": cost,
-                "Node: ": nodes_explored,
-                "Path: ": path,
-                "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                "Step": len(path),
+                "Weight": cost,
+                "Node": nodes_explored,
+                "Path": path,
+                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
         if (ax, ay, stones) in explored:
             continue
@@ -174,12 +174,12 @@ def bfs(file_path):
                 _, memory = trlloc.get_traced_memory()
                 trlloc.stop()
                 return {
-                    "Step: ": len(new_path),
-                    "Weight: ": new_cost,
-                    "Node: ": nodes_explored,
-                    "Path: ": new_path,
-                    "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                    "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                    "Step": len(new_path),
+                    "Weight": new_cost,
+                    "Node": nodes_explored,
+                    "Path": new_path,
+                    "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                    "Memory": "{:.2f}".format(memory / (1024 * 1024)),
                 }
 
             if not check_deadlock(new_stones, index_wall, switch_positions):
@@ -215,12 +215,12 @@ def dfs(file_path):
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
             return {
-                "Step: ": len(path),
-                "Weight: ": cost,
-                "Node: ": nodes_explored,
-                "Path: ": path,
-                "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                "Step": len(path),
+                "Weight": cost,
+                "Node": nodes_explored,
+                "Path": path,
+                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
         if (ax, ay, stones) in explored:
             continue
@@ -265,12 +265,12 @@ def dfs(file_path):
                 _, memory = trlloc.get_traced_memory()
                 trlloc.stop()
                 return {
-                    "Step: ": len(new_path),
-                    "Weight: ": new_cost,
-                    "Node: ": nodes_explored,
-                    "Path: ": new_path,
-                    "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                    "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                    "Step": len(new_path),
+                    "Weight": new_cost,
+                    "Node": nodes_explored,
+                    "Path": new_path,
+                    "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                    "Memory": "{:.2f}".format(memory / (1024 * 1024)),
                 }
 
             if not check_deadlock(new_stones, index_wall, switch_positions):
@@ -306,12 +306,12 @@ def ucs(file_path):
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
             return {
-                "Step: ": len(path),
-                "Weight: ": cost,
-                "Node: ": nodes_explored,
-                "Path: ": path,
-                "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                "Step": len(path),
+                "Weight": cost,
+                "Node": nodes_explored,
+                "Path": path,
+                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
         if (ax, ay, stones) in explored:
@@ -388,12 +388,12 @@ def astar(file_path):
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
             return {
-                "Step: ": len(path),
-                "Weight: ": cost,
-                "Node: ": nodes_explored,
-                "Path: ": path,
-                "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                "Step": len(path),
+                "Weight": cost,
+                "Node": nodes_explored,
+                "Path": path,
+                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
         if (ax, ay, stones) in explored:
@@ -473,12 +473,12 @@ def gbfs(file_path):
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
             return {
-                "Step: ": len(path),
-                "Weight: ": cost,
-                "Node: ": nodes_explored,
-                "Path: ": path,
-                "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                "Step": len(path),
+                "Weight": cost,
+                "Node": nodes_explored,
+                "Path": path,
+                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
         if (ax, ay, stones) in explored:
@@ -557,12 +557,12 @@ def swarm(file_path):
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
             return {
-                "Step: ": len(path),
-                "Weight: ": cost,
-                "Node: ": nodes_explored,
-                "Path: ": path,
-                "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                "Step": len(path),
+                "Weight": cost,
+                "Node": nodes_explored,
+                "Path": path,
+                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
         if (ax, ay, stones) in explored:
@@ -642,12 +642,12 @@ def convergent_swarm(file_path):
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
             return {
-                "Step: ": len(path),
-                "Weight: ": cost,
-                "Node: ": nodes_explored,
-                "Path: ": path,
-                "Time (Ms): ": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory (Mb): ": "{:.2f}".format(memory / (1024 * 1024)),
+                "Step": len(path),
+                "Weight": cost,
+                "Node": nodes_explored,
+                "Path": path,
+                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
+                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
         if (ax, ay, stones) in explored:
             continue
@@ -702,79 +702,4 @@ def convergent_swarm(file_path):
                 nodes_explored = nodes_explored + 1
     return "No solution"
 
-# choose test number and algorithm
-# name = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
-# i = int(input("Enter test number: "))
-# for j in range(len(name)):
-#     print(f"{j+1}. {name[j]}")
-# choice = int(input("Enter choice: "))
-# print(f"test{i} ")
-# file_path = (
-#     "input/input-0" + str(i) + ".txt" if i < 10 else "input/input-" + str(i) + ".txt"
-# )
-# print(file_path)
-# algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
-# print(f"{name[choice-1]}")
-# print(algo[choice - 1](file_path)["Path: "])
-
-# run and put output to file
-start_time = time.time()
-name = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
-algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
-for i in range(26, 31):
-    print(f"test{i}: ")
-    file_path = (
-        "input/input-0" + str(i) + ".txt"
-        if i < 10
-        else "input/input-" + str(i) + ".txt"
-    )
-    file_output = (
-        "output/output-0" + str(i) + ".txt"
-        if i < 10
-        else "output/output-" + str(i) + ".txt"
-    )
-    fwrite = open(file_output, "w")
-    for i in range(len(name)):
-        print(f"{name[i]}")
-        result = algo[i](file_path)
-        fwrite.write(name[i] + "\n") if i == 0 else fwrite.write("\n" + name[i] + "\n")
-        fwrite.write(
-            "Step: "
-            + str(result["Step: "])
-            + ", Weight: "
-            + str(result["Weight: "])
-            + ", Node: "
-            + str(result["Node: "])
-            + ", Time (ms): "
-            + str(result["Time (Ms): "])
-            + ", Memory (MB): "
-            + str(result["Memory (Mb): "])
-            + "\n"
-            + result["Path: "]
-        )
-    fwrite.close()
-end_time = time.time()
-print("Time: ", end_time - start_time)
-
-# start_time = time.time()
-# name = ["UCS"]
-# algo = [ucs]
-# for i in range(1, 11):
-#     print(f"test{i}: ")
-#     file_path = (
-#         "input/input-0" + str(i) + ".txt"
-#         if i < 10
-#         else "input/input-" + str(i) + ".txt"
-#     )
-#     for i in range(len(name)):
-#         print(f"{name[i]}")
-#         print(algo[i](file_path))
-
-# end_time = time.time()
-# print("Time: ", end_time - start_time)
-
-# for i in range(11, 31):
-#     file_path = "input/input-0" + str(i) + ".txt" if i < 10 else "input/input-" + str(i) + ".txt"
-#     fwrite = open(file_path, "w")
-#     fwrite.close()
 

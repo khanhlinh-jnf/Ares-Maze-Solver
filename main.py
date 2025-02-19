@@ -1,28 +1,32 @@
 import sys
 import pygame
-import string
-import queue
+import os
 import copy
 import time
 from API.game import *
 from API.start import *
 from API.subFunction import *
+from Algorithms.sokoban import *
 
 def main():
     pygame.init()
     level = StartGame()
     game = Game(map_open(level))
     size = game.load_size()
-    width = size[0]
-    height = size[1]
-    header_height = 32
-    footer_height = 54
+    width = game.get_width()
+    height = game.get_height()
+    header_height = 64
+    footer_height = 64
     screen = pygame.display.set_mode((width, height + header_height + footer_height))
     sol = ""
     i = 0
     flagAuto = 0
     reset_matrix = copy.deepcopy(game.get_matrix())
-
+    if int(level) < 10:
+        file = "input-0"+level+".txt"
+    else:
+        file = "input-"+level+".txt"
+    file_path = os.path.join("assets", "input", file)
 
     while True:
         print_game(game.get_matrix(),screen)
@@ -40,29 +44,47 @@ def main():
             if event.type == pygame.QUIT: 
                 sys.exit(0)
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_b:
-                    sol = BFS(game)
-                    flagAuto = 1
-                '''if event.key == pygame.K_1:
-                   sol = BFS(game)
-                   flagAuto = 1
+                if event.key == pygame.K_1:
+                    output = bfs(file_path)
+                    flagAuto = True
+                    if output == "No Solution":
+                        sol = "NoSol"
+                    else:
+                        sol = output["Path"]
+                    print(sol)
                 elif event.key == pygame.K_2:
-                   sol = DFS(game)
-                   flagAuto = 1
+                    output = dfs(file_path)
+                    flagAuto = True
+                    if output == "No Solution":
+                        sol = "NoSol"
+                    else:
+                        sol = output["Path"]
+                    print(sol)
                 elif event.key == pygame.K_3:
-                   sol = UCS(game)
-                   flagAuto = 1
+                    output = ucs(file_path)
+                    flagAuto = True
+                    if output == "No Solution":
+                        sol = "NoSol"
+                    else:
+                        sol = output["Path"]
+                    print(sol)
                 elif event.key == pygame.K_4:
-                   sol = AStar(game)
-                   flagAuto = 1
+                    output = astar(file_path)
+                    flagAuto = True
+                    if output == "No Solution":
+                        sol = "NoSol"
+                    else:
+                        sol = output["Path"]
+                    print(sol)
                 elif event.key == pygame.K_5:
-                   sol = Greedy(game)
-                   flagAuto = 1
-                elif event.key == pygame.K_6:
-                     sol = Dijkstra(game)
-                     flagAuto = 1
-                '''
-                if event.key == pygame.K_UP: 
+                    output = gbfs(file_path)
+                    flagAuto = True
+                    if output == "No Solution":
+                        sol = "NoSol"
+                    else:
+                        sol = output["Path"]
+                    print(sol)
+                elif event.key == pygame.K_UP: 
                     game.move(0,-1, True)
                 elif event.key == pygame.K_DOWN: 
                     game.move(0,1, True)
@@ -82,7 +104,7 @@ def main():
                     game.reset(reset_matrix)
 
         if (flagAuto) and (i < len(sol)):
-            playByBot(game,sol[i])
+            playByBot(game,sol[i].upper())
             i += 1
             if i == len(sol): 
                 flagAuto = 0

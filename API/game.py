@@ -6,7 +6,7 @@ import copy
 import time
 
 TIME_LIMITED = 1800
-element_size = 32
+element_size = 64
 
 
 class Game:
@@ -37,12 +37,12 @@ class Game:
 
     def load_size(self):
         x = 0
-        y = len(self.matrix)
+        y = len(self.matrix) - 1
         for row in self.matrix:
             if len(row) > x:
                 x = len(row)
 
-        return (x * element_size, y * element_size)
+        return ((x-1) * element_size, y * element_size)
 
     def get_width(self):
         return self.width
