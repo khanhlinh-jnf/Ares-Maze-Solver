@@ -16,11 +16,14 @@ def main():
     width = game.get_width()
     height = game.get_height()
     header_height = 64
-    footer_height = 64
+    footer_height = 70
     screen = pygame.display.set_mode((width, height + header_height + footer_height))
     sol = ""
+    output = {}
     i = 0
     flagAuto = 0
+    flagReset = 1
+    flagEnd = 0
     reset_matrix = copy.deepcopy(game.get_matrix())
     if int(level) < 10:
         file = "input-0"+level+".txt"
@@ -30,8 +33,12 @@ def main():
 
     while True:
         print_game(game.get_matrix(),screen)
-        display_header(width, header_height, screen, game.get_step())
         display_footer(width, height + header_height, footer_height, screen)
+        if flagEnd:
+            display_header_final(width, header_height, screen, output)
+        else:
+            display_header(width, header_height, screen, game.get_step())
+        
 
         if sol == "NoSol":
             display_end(screen,"Cannot")
@@ -45,6 +52,7 @@ def main():
                 sys.exit(0)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
+                    i = 0
                     output = bfs(file_path)
                     flagAuto = True
                     if output == "No Solution":
@@ -53,6 +61,7 @@ def main():
                         sol = output["Path"]
                     print(sol)
                 elif event.key == pygame.K_2:
+                    i = 0
                     output = dfs(file_path)
                     flagAuto = True
                     if output == "No Solution":
@@ -61,6 +70,7 @@ def main():
                         sol = output["Path"]
                     print(sol)
                 elif event.key == pygame.K_3:
+                    i = 0
                     output = ucs(file_path)
                     flagAuto = True
                     if output == "No Solution":
@@ -69,6 +79,7 @@ def main():
                         sol = output["Path"]
                     print(sol)
                 elif event.key == pygame.K_4:
+                    i = 0
                     output = astar(file_path)
                     flagAuto = True
                     if output == "No Solution":
@@ -77,6 +88,7 @@ def main():
                         sol = output["Path"]
                     print(sol)
                 elif event.key == pygame.K_5:
+                    i = 0
                     output = gbfs(file_path)
                     flagAuto = True
                     if output == "No Solution":
@@ -103,12 +115,20 @@ def main():
                 elif event.key == pygame.K_r:
                     game.reset(reset_matrix)
 
+
         if (flagAuto) and (i < len(sol)):
+            if (i==0):
+                flagEnd = 0
+                game.reset(reset_matrix)
+                time.sleep(0.5)
             playByBot(game,sol[i].upper())
             i += 1
             if i == len(sol): 
+                flagEnd = 1
                 flagAuto = 0
-            time.sleep(0.2)
+                i = 0
+                time.sleep(0.1)
+            time.sleep(0.1)
 
         pygame.display.update()
     

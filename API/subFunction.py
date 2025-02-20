@@ -92,7 +92,7 @@ def display_end(screen,msg):
     pygame.display.flip()
 
 pygame.font.init()
-font = pygame.font.Font(None, 16)  # Chọn font mặc định, kích thước 36
+font = pygame.font.Font(None, 24)  # Chọn font mặc định, kích thước 36
 
 
 def display_header(width, height, screen, step):
@@ -101,7 +101,20 @@ def display_header(width, height, screen, step):
     msg = "Step: " + str(step)
     text_surface = font.render(msg, True, (0, 0, 0))
     screen.blit(header, (0, 0))
-    screen.blit(text_surface, (20, 5))
+    screen.blit(text_surface, (24, 5))
+
+
+def display_header_final(width, height, screen, output):
+    header = pygame.Surface((width, height))
+    header.fill((255, 255, 255))
+    msg = ["Statistics:",
+    "  Step: " + str(output["Step"]) + "                Weight: " + str(output["Weight"]) + "                Node: " + str(output["Node"]),
+    "  Time: " + str(output["Time"]) + "ms" + "                           Memory: " + str(output["Memory"]) + "MB"]
+    screen.blit(header, (0, 0))
+    for i, line in enumerate(msg):
+        text_surface = font.render(line, True, (0, 0, 0))
+        screen.blit(text_surface, (20, i*20))
+
 
 def display_footer(width, offset, footer_height ,screen):
     footer = pygame.Surface((width, footer_height))
@@ -109,8 +122,8 @@ def display_footer(width, offset, footer_height ,screen):
 
     options = [
         "Choose algorithm:",
-        "1. BFS          2. DFS          3. UCS",
-        "4. A*           5. Greedy BFS   6. Dijkstra",
+        "1. BFS              2. DFS              3. UCS",
+        "4. A*                 5. Greedy BFS         6. Dijkstra",
     ]
 
 
@@ -119,4 +132,8 @@ def display_footer(width, offset, footer_height ,screen):
 
     for i, line in enumerate(options):
         text_surface = font.render(line, True, (0, 0, 0))  # Black text
-        screen.blit(text_surface, (20, offset + 5 + (i * 14))) 
+        screen.blit(text_surface, (24, offset + 5 + (i * 20))) 
+
+
+
+
