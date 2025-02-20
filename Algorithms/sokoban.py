@@ -2,21 +2,22 @@ import time
 import tracemalloc as trlloc
 from collections import deque
 import queue as q
+OVERTIME = 30
 
 Player = "@"
 Switch = "."
 Space = " "
 Stone = "$"
 Wall = "#"
-Swarm_w = 2
+Swarm_w = 1.5
 Convergent_Swarm_w = 20
 
 
 def load_maze(file_path):
     ares_position = (0, 0)
-    stone_positions = []
-    switch_positions = []
-    index_wall = []
+    stone_positions = set()
+    switch_positions = set()
+    index_wall = set()
     stones_value = {}
 
     with open(file_path, "r") as file:
@@ -29,16 +30,16 @@ def load_maze(file_path):
                 if data[i][j] == Player:
                     ares_position = (i, j)
                 elif data[i][j] == Stone:
-                    stone_positions.append((i, j))
+                    stone_positions.add((i, j))
                     stones_value[(i, j)] = value_of_stones[index]
                     index = index + 1
                 elif data[i][j] == Switch:
-                    switch_positions.append((i, j))
+                    switch_positions.add((i, j))
                 elif data[i][j] == Wall:
-                    index_wall.append((i, j))
+                    index_wall.add((i, j))
                 elif data[i][j] == "*":
-                    switch_positions.append((i, j))
-                    stone_positions.append((i, j))
+                    switch_positions.add((i, j))
+                    stone_positions.add((i, j))
                     stones_value[(i, j)] = value_of_stones[index]
                     index = index + 1
     return ares_position, stone_positions, switch_positions, index_wall, stones_value
@@ -61,54 +62,46 @@ def check_deadlock(new_stones, index_wall, switch_positions):
             if (i + di, j) in index_wall and (i, j + dj) in index_wall:
                 return True
 
-            if (i + di, j) in new_stones and (i, j + dj) in new_stones:
-                if (i - di, j + dj) in index_wall and (
-                    i + di,
-                    j - dj,
-                ) in index_wall:
-                    return True
+            # if (i + di, j) in new_stones and (i, j + dj) in new_stones:
+            #     if (i - di, j + dj) in index_wall and (
+            #         i + di,
+            #         j - dj,
+            #     ) in index_wall:
+            #         return True
 
-            if (i, j + dj) in new_stones and (i + di, j) in index_wall:
-                if (i - di, j + dj) in index_wall:
-                    return True
+            # if (i, j + dj) in new_stones and (i + di, j) in index_wall:
+            #     if (i - di, j + dj) in index_wall:
+            #         return True
 
-            if (i, j + dj) in index_wall and (i + di, j) in new_stones:
-                if (i + di, j - dj) in index_wall:
-                    return True
+            # if (i, j + dj) in index_wall and (i + di, j) in new_stones:
+            #     if (i + di, j - dj) in index_wall:
+            #         return True
     return False
 
 
 def calculate_heuristics(new_stones, new_x, new_y, new_stones_value, switch_positions):
-    heuristics = 0
-    Ares_to_stone = 1e9
-    p_frontier = q.PriorityQueue()
-    for stone in new_stones:
-        p_frontier.put((-new_stones_value[stone], stone))
-        distance = abs(new_x - stone[0]) + abs(new_y - stone[1])
-        if distance < Ares_to_stone:
-            Ares_to_stone = distance
-    used = set()
-    while not p_frontier.empty():
-        stone = p_frontier.get()[1]
-        distance = 1e9
-        match = (0, 0)
+    total_heuristic = 0
+    distance_ares_to_stone_min = 1e10
+
+    for i, j in new_stones:
+        distance_ares_to_stone = abs(new_x - i) + abs(new_y - j)
+        if distance_ares_to_stone_min > distance_ares_to_stone:
+            distance_ares_to_stone_min = distance_ares_to_stone
+
+        distance_stone_to_switches = 1e10
         for switch in switch_positions:
-            if switch in used:
-                continue
-            if abs(switch[0] - stone[0]) + abs(switch[1] - stone[1]) < distance:
-                distance = abs(switch[0] - stone[0]) + abs(switch[1] - stone[1])
-                match = switch
-        used.add(match)
-        heuristics += distance * new_stones_value[stone]
-    heuristics += Ares_to_stone
-    return heuristics
+            temp_distance = abs(i - switch[0]) + abs(j - switch[1])
+            if temp_distance < distance_stone_to_switches:
+                distance_stone_to_switches = temp_distance
+        total_heuristic += distance_stone_to_switches * (new_stones_value[(i, j)] + 1)
+
+    return total_heuristic + distance_ares_to_stone_min
 
 
 def bfs(file_path):
     ares_position, stone_positions, switch_positions, index_wall, stones_value = (
         load_maze(file_path)
     )
-    switch_positions = set(switch_positions)
     start_time = time.time()
     trlloc.start()
     nodes_explored = 0
@@ -117,6 +110,8 @@ def bfs(file_path):
     explored = set()
 
     while frontier:
+        if (time.time() - start_time) >= OVERTIME:
+            return "TimeOut"
         (ax, ay), stones, path, cost, value = frontier.popleft()
 
         if stones == switch_positions:
@@ -200,7 +195,6 @@ def dfs(file_path):
     ares_position, stone_positions, switch_positions, index_wall, stones_value = (
         load_maze(file_path)
     )
-    switch_positions = set(switch_positions)
     start_time = time.time()
     trlloc.start()
     nodes_explored = 1
@@ -208,7 +202,9 @@ def dfs(file_path):
     frontier.put((ares_position, frozenset(stone_positions), "", 0, stones_value))
     explored = set()
 
-    while frontier:
+    while not frontier.empty():
+        if (time.time() - start_time) >= OVERTIME:
+            return "TimeOut"
         (ax, ay), stones, path, cost, value = frontier.get()
         if stones == switch_positions:
             end_time = time.time()
@@ -225,7 +221,7 @@ def dfs(file_path):
         if (ax, ay, stones) in explored:
             continue
         explored.add((ax, ay, stones))
-        
+
         for next_x, next_y, move in [
             (-1, 0, "u"),
             (1, 0, "d"),
@@ -291,7 +287,6 @@ def ucs(file_path):
     ares_position, stone_positions, switch_positions, index_wall, stones_value = (
         load_maze(file_path)
     )
-    switch_positions = set(switch_positions)
     start_time = time.time()
     trlloc.start()
     nodes_explored = 0
@@ -299,7 +294,9 @@ def ucs(file_path):
     frontier.put((0, (ares_position, frozenset(stone_positions), "", 0, stones_value)))
     explored = set()
 
-    while frontier:
+    while not frontier.empty():
+        if (time.time() - start_time) >= OVERTIME:
+            return "TimeOut"
         (ax, ay), stones, path, cost, value = frontier.get()[1]
         if stones == switch_positions:
             end_time = time.time()
@@ -373,7 +370,6 @@ def astar(file_path):
     ares_position, stone_positions, switch_positions, index_wall, stones_value = (
         load_maze(file_path)
     )
-    goal = set(switch_positions)
     start_time = time.time()
     trlloc.start()
     nodes_explored = 0
@@ -381,9 +377,11 @@ def astar(file_path):
     frontier.put((0, (ares_position, frozenset(stone_positions), "", 0, stones_value)))
     explored = set()
 
-    while frontier:
+    while not frontier.empty():
+        if (time.time() - start_time) >= OVERTIME:
+            return "TimeOut"
         (ax, ay), stones, path, cost, value = frontier.get()[1]
-        if stones == goal:
+        if stones == switch_positions:
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
@@ -458,7 +456,6 @@ def gbfs(file_path):
     ares_position, stone_positions, switch_positions, index_wall, stones_value = (
         load_maze(file_path)
     )
-    goal = set(switch_positions)
     start_time = time.time()
     trlloc.start()
     nodes_explored = 0
@@ -466,9 +463,11 @@ def gbfs(file_path):
     frontier.put((0, (ares_position, frozenset(stone_positions), "", 0, stones_value)))
     explored = set()
 
-    while frontier:
+    while not frontier.empty():
+        if (time.time() - start_time) >= OVERTIME:
+            return "TimeOut"
         (ax, ay), stones, path, cost, value = frontier.get()[1]
-        if stones == goal:
+        if stones == switch_positions:
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
@@ -542,7 +541,6 @@ def swarm(file_path):
     ares_position, stone_positions, switch_positions, index_wall, stones_value = (
         load_maze(file_path)
     )
-    goal = set(switch_positions)
     start_time = time.time()
     trlloc.start()
     nodes_explored = 0
@@ -550,9 +548,11 @@ def swarm(file_path):
     frontier.put((0, (ares_position, frozenset(stone_positions), "", 0, stones_value)))
     explored = set()
 
-    while frontier:
+    while not frontier.empty():
+        if (time.time() - start_time) >= OVERTIME:
+            return "TimeOut"
         (ax, ay), stones, path, cost, value = frontier.get()[1]
-        if stones == goal:
+        if stones == switch_positions:
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
@@ -628,16 +628,15 @@ def convergent_swarm(file_path):
     ares_position, stone_positions, switch_positions, index_wall, stones_value = (
         load_maze(file_path)
     )
-    goal = set(switch_positions)
     start_time = time.time()
     trlloc.start()
     nodes_explored = 0
     frontier = q.PriorityQueue()
     frontier.put((0, (ares_position, frozenset(stone_positions), "", 0, stones_value)))
     explored = set()
-    while frontier:
+    while not frontier.empty():
         (ax, ay), stones, path, cost, value = frontier.get()[1]
-        if stones == goal:
+        if stones == switch_positions:
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
@@ -701,5 +700,3 @@ def convergent_swarm(file_path):
                 )
                 nodes_explored = nodes_explored + 1
     return "No solution"
-
-
