@@ -700,3 +700,30 @@ def convergent_swarm(file_path):
                 )
                 nodes_explored = nodes_explored + 1
     return "No solution"
+
+
+def write_result_to_output():
+    level = int(input("Enter level: "))
+    print("Running...")
+    path_input = f"./input/input-0{level}.txt" if level < 10 else f"./assets/input/input-{level}.txt"
+    path_output = f"./output/output-0{level}.txt" if level < 10 else f"./assets/output/output-{level}.txt"
+    name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
+    algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
+    file = open(path_output, "w")
+    for i in range(len(algo)):
+        file.write(f"{name_algo[i]}\n")
+        result = algo[i](path_input)
+        if result == "No Solution":
+            file.write("No Solution\n")
+        elif result == "TimeOut":
+            file.write("Time Out\n")
+        else:
+            file.write(f"Step: {result['Step']}, ")
+            file.write(f"Weight: {result['Weight']}, ")
+            file.write(f"Node: {result['Node']}, ")
+            file.write(f"Time: {result['Time']} ms, ")
+            file.write(f"Memory: {result['Memory']} MB\n")
+            file.write(f"{result['Path']}\n")
+    file.close()
+    print("Done!")
+    print(f"Output file: {path_output}")

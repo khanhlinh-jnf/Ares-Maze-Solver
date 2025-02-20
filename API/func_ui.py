@@ -13,7 +13,7 @@ switch = pygame.image.load("assets\\resources\switch.png")
 background = 255, 204, 229
 
 def map_open(level):
-    path = "./assets/input/input-"
+    path = "./input/input-"
     matrix = []
 
     if int(level) < 10:
