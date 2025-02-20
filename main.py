@@ -55,6 +55,7 @@ def main():
                     sys.exit(0)
                 elif event.key == pygame.K_r:
                     game.reset(reset_matrix)
+                    pygame.display.flip()
                     sol = ""
                 elif sol != "No Solution" and sol != "TimeOut" and sol != "complete":
                     if event.key == pygame.K_1:
