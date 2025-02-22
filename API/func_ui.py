@@ -137,8 +137,8 @@ def display_information(screen, msg):
         message = "GBFS is running"
     elif msg == "Swarm":
         message = "Swarm is running"
-    elif msg == "Pause":
-        message = "The animation is paused! Press 'p' to continue"
+    elif msg == "Output":
+        message = "Writing result to file at folder"
 
     fontobject = pygame.font.SysFont("timesnewroman", 14)
     pygame.draw.rect(
@@ -159,10 +159,8 @@ def display_information(screen, msg):
     )
     pygame.display.flip()
 
-
 pygame.font.init()
 font = pygame.font.SysFont("timesnewroman", 14)  # Chọn font mặc định, kích thước 36
-
 
 def display_header(width, height, screen, step):
     header = pygame.Surface((width, height))
@@ -203,7 +201,7 @@ def display_footer(width, offset, footer_height, screen):
 
     options = [
         "Choose algorithm:                                             Intruction:",
-        "1. BFS      2. DFS        3. UCS                          q - quit game      r - reset game",
+        "1. BFS      2. DFS        3. UCS                          q - quit  o - output result  r - reset",
         "4. A*        5. GBFS      6. Swarm                       p - pause/continue aminimation",
     ]
 

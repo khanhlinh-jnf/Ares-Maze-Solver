@@ -701,12 +701,10 @@ def convergent_swarm(file_path):
                 nodes_explored = nodes_explored + 1
     return "No solution"
 
-
-def write_result_to_output():
-    level = int(input("Enter level: "))
-    print("Running...")
-    path_input = f"./input/input-0{level}.txt" if level < 10 else f"./assets/input/input-{level}.txt"
-    path_output = f"./output/output-0{level}.txt" if level < 10 else f"./assets/output/output-{level}.txt"
+def write_result_to_output(level):
+    level = int(level)
+    path_input = f"./input/input-0{level}.txt" if level < 10 else f"./input/input-{level}.txt"
+    path_output = f"./output/output-0{level}.txt" if level < 10 else f"./output/output-{level}.txt"
     name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
     algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
     file = open(path_output, "w")

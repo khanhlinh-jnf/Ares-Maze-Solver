@@ -1,11 +1,172 @@
-import API.algorithms
-import API.gui
+import sys
+import pygame
+import os
+import copy
+import time
+from API.class_game import *
+from API.func_ui import *
+from API.algorithms import *
+
+def main():
+    pygame.init()
+    pygame.display.set_caption("Ares's Adventure")
+    level = StartGame()
+    game = Game(map_open(level))
+    caption = "Ares's Adventure - Level " + level
+    pygame.display.set_caption(caption)
+    size = game.load_size()
+    width = game.get_width()
+    height = game.get_height()
+    header_height = 64
+    footer_height = 70
+    screen = pygame.display.set_mode((width, height + header_height + footer_height))
+    sol = ""
+    output = {}
+    i = 0
+    flagAuto = 0
+    flagReset = 1
+    flagEnd = 0
+    reset_matrix = copy.deepcopy(game.get_matrix())
+    if int(level) < 10:
+        file = "input-0"+level+".txt"
+    else:
+        file = "input-"+level+".txt"
+    file_path = os.path.join("input", file)
+
+    while True :
+        print_game(game.get_matrix(),screen)
+        display_footer(width, height + header_height, footer_height, screen)
+        if flagEnd:
+            display_header_final(width, header_height, screen, output)
+        else:
+            display_header(width, header_height, screen, game.get_step())
+
+        if sol == "No Solution":
+            display_information(screen,"Cannot")
+            flagAuto = 0
+        if sol == "TimeOut":
+            display_information(screen,"Out")
+            flagAuto = 0
+        if game.is_completed():
+            display_information(screen,"Done")
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: 
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q: 
+                    sys.exit(0)
+                elif event.key == pygame.K_r:
+                    game.reset(reset_matrix)
+                    pygame.display.flip()
+                    sol = ""
+                elif event.key == pygame.K_o:
+                    pygame.display.flip()
+                    display_information(screen, "Output")
+                    write_result_to_output(level)
+                    pygame.display.flip()
+                elif sol != "No Solution" and sol != "TimeOut" and sol != "Complete":
+                    if event.key == pygame.K_1:
+                        display_information(screen,"BFS")
+                        pygame.display.flip()
+                        game.reset(reset_matrix)
+                        output = bfs(file_path)
+                        flagAuto = True
+                        if output == "No Solution":
+                            sol = "No Solution"
+                        elif output == "TimeOut":
+                            sol = "TimeOut"
+                        else:
+                            sol = output["Path"]
+                    elif event.key == pygame.K_2:
+                        display_information(screen,"DFS")
+                        pygame.display.flip()
+                        game.reset(reset_matrix)
+                        output = dfs(file_path)
+                        flagAuto = True
+                        if output == "No Solution":
+                            sol = "No Solution"
+                        elif output == "TimeOut":
+                            sol = "TimeOut"
+                        else:
+                            sol = output["Path"]
+                    elif event.key == pygame.K_3:
+                        display_information(screen,"UCS")
+                        pygame.display.flip()
+                        game.reset(reset_matrix)
+                        output = ucs(file_path)
+                        flagAuto = True
+                        if output == "No Solution":
+                            sol = "No Solution"
+                        elif output == "TimeOut":
+                            sol = "TimeOut"
+                        else:
+                            sol = output["Path"]
+                    elif event.key == pygame.K_4:
+                        display_information(screen,"A*")
+                        pygame.display.flip()
+                        game.reset(reset_matrix)
+                        output = astar(file_path)
+                        flagAuto = True
+                        if output == "No Solution":
+                            sol = "No Solution"
+                        elif output == "TimeOut":
+                            sol = "TimeOut"
+                        else:
+                            sol = output["Path"]
+                    elif event.key == pygame.K_5:
+                        display_information(screen,"GBFS")
+                        pygame.display.flip()
+                        game.reset(reset_matrix)
+
+                        output = gbfs(file_path)
+                        flagAuto = True
+                        if output == "No Solution":
+                            sol = "No Solution"
+                        elif output == "TimeOut":
+                            sol = "TimeOut"
+                        else:
+                            sol = output["Path"]
+                    elif event.key == pygame.K_6:
+                        display_information(screen,"Swarm")
+                        pygame.display.flip()
+                        game.reset(reset_matrix)
+
+                        output = swarm(file_path)
+                        flagAuto = True
+                        if output == "No Solution":
+                            sol = "No Solution"
+                        elif output == "TimeOut":
+                            sol = "TimeOut"
+                        else:
+                            sol = output["Path"]
+                    elif event.key == pygame.K_UP:
+                        game.Ares_move("U")
+                    elif event.key == pygame.K_DOWN:
+                        game.Ares_move("D")
+                    elif event.key == pygame.K_LEFT:
+                        game.Ares_move("L")
+                    elif event.key == pygame.K_RIGHT:
+                        game.Ares_move("R")
+                    elif event.key == pygame.K_p:
+                        flagAuto = 1 - flagAuto #pause
+
+        if (flagAuto) and (i < len(sol)):
+            if (i==0):
+                flagEnd = 0
+                game.reset(reset_matrix)
+                time.sleep(0.5)
+            playByBot(game,sol[i].upper())
+            i += 1
+            if i == len(sol): 
+                flagEnd = 1
+                flagAuto = 0
+                i = 0
+                time.sleep(0.1)
+                sol = "Complete"
+            time.sleep(0.1)
+
+        pygame.display.update()
 
 if __name__ == "__main__":
-	print("1. Get output of level you want to solve")
-	print("2. Play game and solve if you want")
- 
-	choice = input("Enter your choice: ")
-	if choice == "2": API.gui.main()
-	elif choice == "1": API.algorithms.write_result_to_output()
-	else: print("Invalid choice")
+    main()
