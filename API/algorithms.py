@@ -2,6 +2,7 @@ import time
 import tracemalloc as trlloc
 from collections import deque
 import queue as q
+
 OVERTIME = 30
 
 Player = "@"
@@ -126,8 +127,6 @@ def bfs(file_path):
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
-        if (ax, ay, stones) in explored:
-            continue
         explored.add((ax, ay, stones))
 
         for next_x, next_y, move in [
@@ -177,7 +176,10 @@ def bfs(file_path):
                     "Memory": "{:.2f}".format(memory / (1024 * 1024)),
                 }
 
-            if not check_deadlock(new_stones, index_wall, switch_positions):
+            if (
+                not check_deadlock(new_stones, index_wall, switch_positions)
+                and not (new_x, new_y, frozenset(new_stones)) in explored
+            ):
                 frontier.append(
                     (
                         (new_x, new_y),
@@ -218,8 +220,6 @@ def dfs(file_path):
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
-        if (ax, ay, stones) in explored:
-            continue
         explored.add((ax, ay, stones))
 
         for next_x, next_y, move in [
@@ -269,7 +269,10 @@ def dfs(file_path):
                     "Memory": "{:.2f}".format(memory / (1024 * 1024)),
                 }
 
-            if not check_deadlock(new_stones, index_wall, switch_positions):
+            if (
+                not check_deadlock(new_stones, index_wall, switch_positions)
+                and not (new_x, new_y, frozenset(new_stones)) in explored
+            ):
                 frontier.put(
                     (
                         (new_x, new_y),
@@ -311,8 +314,6 @@ def ucs(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
-        if (ax, ay, stones) in explored:
-            continue
         explored.add((ax, ay, stones))
 
         for next_x, next_y, move in [
@@ -349,7 +350,10 @@ def ucs(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if not check_deadlock(new_stones, index_wall, switch_positions):
+            if (
+                not check_deadlock(new_stones, index_wall, switch_positions)
+                and not (new_x, new_y, frozenset(new_stones)) in explored
+            ):
                 frontier.put(
                     (
                         new_cost,
@@ -394,8 +398,6 @@ def astar(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
-        if (ax, ay, stones) in explored:
-            continue
         explored.add((ax, ay, stones))
 
         for next_x, next_y, move in [
@@ -432,7 +434,10 @@ def astar(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if not check_deadlock(new_stones, index_wall, switch_positions):
+            if (
+                not check_deadlock(new_stones, index_wall, switch_positions)
+                and not (new_x, new_y, frozenset(new_stones)) in explored
+            ):
                 frontier.put(
                     (
                         new_cost
@@ -480,8 +485,6 @@ def gbfs(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
-        if (ax, ay, stones) in explored:
-            continue
         explored.add((ax, ay, stones))
 
         for next_x, next_y, move in [
@@ -518,7 +521,10 @@ def gbfs(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if not check_deadlock(new_stones, index_wall, switch_positions):
+            if (
+                not check_deadlock(new_stones, index_wall, switch_positions)
+                and not (new_x, new_y, frozenset(new_stones)) in explored
+            ):
                 frontier.put(
                     (
                         calculate_heuristics(
@@ -565,8 +571,6 @@ def swarm(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
-        if (ax, ay, stones) in explored:
-            continue
         explored.add((ax, ay, stones))
 
         for next_x, next_y, move in [
@@ -603,7 +607,10 @@ def swarm(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if not check_deadlock(new_stones, index_wall, switch_positions):
+            if (
+                not check_deadlock(new_stones, index_wall, switch_positions)
+                and not (new_x, new_y, frozenset(new_stones)) in explored
+            ):
                 frontier.put(
                     (
                         new_cost
@@ -648,8 +655,6 @@ def convergent_swarm(file_path):
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
-        if (ax, ay, stones) in explored:
-            continue
         explored.add((ax, ay, stones))
         for next_x, next_y, move in [
             (-1, 0, "u"),
@@ -681,7 +686,10 @@ def convergent_swarm(file_path):
             else:
                 new_cost += 1
             new_path = new_path + move
-            if not check_deadlock(new_stones, index_wall, switch_positions):
+            if (
+                not check_deadlock(new_stones, index_wall, switch_positions)
+                and not (new_x, new_y, frozenset(new_stones)) in explored
+            ):
                 frontier.put(
                     (
                         new_cost
@@ -701,10 +709,17 @@ def convergent_swarm(file_path):
                 nodes_explored = nodes_explored + 1
     return "No solution"
 
+
 def write_result_to_output(level):
     level = int(level)
-    path_input = f"./input/input-0{level}.txt" if level < 10 else f"./input/input-{level}.txt"
-    path_output = f"./output/output-0{level}.txt" if level < 10 else f"./output/output-{level}.txt"
+    path_input = (
+        f"./input/input-0{level}.txt" if level < 10 else f"./input/input-{level}.txt"
+    )
+    path_output = (
+        f"./output/output-0{level}.txt"
+        if level < 10
+        else f"./output/output-{level}.txt"
+    )
     name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
     algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
     file = open(path_output, "w")

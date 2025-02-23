@@ -26,6 +26,7 @@ def main():
     flagAuto = 0
     flagReset = 1
     flagEnd = 0
+    flagSolve = 0
     reset_matrix = copy.deepcopy(game.get_matrix())
     if int(level) < 10:
         file = "input-0"+level+".txt"
@@ -60,18 +61,24 @@ def main():
                     game.reset(reset_matrix)
                     pygame.display.flip()
                     sol = ""
+                    flagSolve = 0
+                    flagAuto = 0
+                    i = 0
                 elif event.key == pygame.K_o:
                     pygame.display.flip()
                     display_information(screen, "Output")
                     write_result_to_output(level)
                     pygame.display.flip()
-                elif sol != "No Solution" and sol != "TimeOut" and sol != "Complete":
+                elif event.key == pygame.K_p:
+                    flagAuto = 1 - flagAuto  # pause
+                elif sol != "No Solution" and sol != "TimeOut" and sol != "Complete" and flagSolve == 0:
                     if event.key == pygame.K_1:
                         display_information(screen,"BFS")
                         pygame.display.flip()
                         game.reset(reset_matrix)
                         output = bfs(file_path)
                         flagAuto = True
+                        flagSolve = 1
                         if output == "No Solution":
                             sol = "No Solution"
                         elif output == "TimeOut":
@@ -84,6 +91,7 @@ def main():
                         game.reset(reset_matrix)
                         output = dfs(file_path)
                         flagAuto = True
+                        flagSolve = 1
                         if output == "No Solution":
                             sol = "No Solution"
                         elif output == "TimeOut":
@@ -96,6 +104,7 @@ def main():
                         game.reset(reset_matrix)
                         output = ucs(file_path)
                         flagAuto = True
+                        flagSolve = 1
                         if output == "No Solution":
                             sol = "No Solution"
                         elif output == "TimeOut":
@@ -108,6 +117,7 @@ def main():
                         game.reset(reset_matrix)
                         output = astar(file_path)
                         flagAuto = True
+                        flagSolve = 1
                         if output == "No Solution":
                             sol = "No Solution"
                         elif output == "TimeOut":
@@ -121,6 +131,7 @@ def main():
 
                         output = gbfs(file_path)
                         flagAuto = True
+                        flagSolve = 1
                         if output == "No Solution":
                             sol = "No Solution"
                         elif output == "TimeOut":
@@ -134,6 +145,7 @@ def main():
 
                         output = swarm(file_path)
                         flagAuto = True
+                        flagSolve = 1
                         if output == "No Solution":
                             sol = "No Solution"
                         elif output == "TimeOut":
@@ -148,8 +160,6 @@ def main():
                         game.Ares_move("L")
                     elif event.key == pygame.K_RIGHT:
                         game.Ares_move("R")
-                    elif event.key == pygame.K_p:
-                        flagAuto = 1 - flagAuto #pause
 
         if (flagAuto) and (i < len(sol)):
             if (i==0):
