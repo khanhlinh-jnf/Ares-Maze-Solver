@@ -1,0 +1,21 @@
+BFS
+Step: 99, Weight: 574, Node: 8593, Time: 402.35 ms, Memory: 2.74 MB
+uuulldLullddrUluRRRRRRurDDDDllddrrUruLddlluulllUUluRRRRRurDDDDLLddrrUruLLruuullddDDuuuullldddrRdrUU
+DFS
+Step: 723, Weight: 1868, Node: 1948, Time: 173.23 ms, Memory: 1.32 MB
+rruuulllldLrurrrrdddrdldllulullUlluurDlurrrrrrrdddrdldllululluUruLrrrrrdddrdldllululluulldRlurrrurrrrdddrdldllulullUlluuRRRRRRlllllldrdrUrurrrurDllllLrrrrrDDDlllllulluuRRRRRRlllllldrrddrrrddrrUruLrdldllulurRllllullurrrurrrurDllllllldrrddrrrddrruruLrdldlluluruuurrDDDLruuullllllldrrddrrRldrdrrUULrrdldllulullullurrrurrrrdDuullllllldrrddrrdrdrruruLrdldllulullullurrrurrddDlllullurrrurrrrdddLLrrrdldllUUrruuullllllldrrddrRRRllllullurrrurrrrddDllldrdrrUUrdldllulurUdrrrdldllulullullurrrurrrrdDDllldrdrrUruLrdldllulurRluUddlllullurrrurRllllldrrddrrrddrruruLLrrdldllulullullurrrurrRlllllldrrddrrdrdrrurullLLruuururDllllllldrrddRRllullurrrurrddDrrrdldllUdrrurullLuuurrDDDllLrddrrUruLLrrdldlluUrruuulldDDDlurrruuullllllldrrddRRdrUU
+UCS
+Step: 125, Weight: 526, Node: 8678, Time: 811.57 ms, Memory: 2.72 MB
+uuulldLullddrUluRRRRRRurDDDuulldddddrruruLLrddllulullUUluRRRRRurDDDuulllldlddrrdrdrruruLuuullddDDuuuurrdddLruuulllldlddrrdrUU
+A*
+Step: 125, Weight: 526, Node: 8331, Time: 929.99 ms, Memory: 2.70 MB
+uuulldLullddrUluRRRRRRurDDDuulldddddrruruLLrddllulullUUluRRRRRurDDDuulllldlddrrdrdrruruLuuullddDDuuuurrdddLruuulllldlddrrdrUU
+GBFS
+Step: 151, Weight: 682, Node: 2617, Time: 268.59 ms, Memory: 0.85 MB
+uuulldLrurrdddlllUlUluRRRRRRurDllllllddrUluRRdlddrrruuurrDDDllllluuurRldlddrrrddrrUruLLrddlluUUdllluururRRurDDDDllddrrUruLLLrruuullDDDDuuuulldlddrRdrUU
+Swarm
+Step: 131, Weight: 550, Node: 7975, Time: 859.62 ms, Memory: 2.56 MB
+uuulldLrurrdddlllUlUluRRRRRRurDDDuulldddddrruruLLrddlluUllluUluRRRRRurDDDuulllldlddrrrddrruruLuuulldDDDuuuurrdddLruuulllldlddrrdrUU
+Convergent Swarm
+Step: 155, Weight: 648, Node: 3122, Time: 342.55 ms, Memory: 0.98 MB
+uuulldLrurrdddlllUlUluRRRRRllllddrUluRRdlddrrruuuRurDDDDllllluuurRldlddrrrddrrUruLLrddlluUUdllluururRRurDDDDllddrrUruLuuullDDDDuuuurrdddLruuulllldlddrrdrUU

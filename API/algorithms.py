@@ -3,7 +3,7 @@ import tracemalloc as trlloc
 from collections import deque
 import queue as q
 
-OVERTIME = 30
+OVERTIME = 300
 
 Player = "@"
 Switch = "."
@@ -30,6 +30,9 @@ def load_maze(file_path):
             for j in range(len(data[i])):
                 if data[i][j] == Player:
                     ares_position = (i, j)
+                elif data[i][j] == "+":
+                    ares_position = (i, j)
+                    switch_positions.add((i, j))
                 elif data[i][j] == Stone:
                     stone_positions.add((i, j))
                     stones_value[(i, j)] = value_of_stones[index]
@@ -127,7 +130,10 @@ def bfs(file_path):
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
+        if (ax, ay, stones) in explored:
+            continue
         explored.add((ax, ay, stones))
+        nodes_explored = nodes_explored + 1
 
         for next_x, next_y, move in [
             (-1, 0, "u"),
@@ -176,10 +182,7 @@ def bfs(file_path):
                     "Memory": "{:.2f}".format(memory / (1024 * 1024)),
                 }
 
-            if (
-                not check_deadlock(new_stones, index_wall, switch_positions)
-                and not (new_x, new_y, frozenset(new_stones)) in explored
-            ):
+            if not check_deadlock(new_stones, index_wall, switch_positions):
                 frontier.append(
                     (
                         (new_x, new_y),
@@ -189,7 +192,7 @@ def bfs(file_path):
                         new_stones_value,
                     )
                 )
-                nodes_explored = nodes_explored + 1
+
     return "No Solution"
 
 
@@ -220,7 +223,10 @@ def dfs(file_path):
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
+        if (ax, ay, stones) in explored:
+            continue
         explored.add((ax, ay, stones))
+        nodes_explored = nodes_explored + 1
 
         for next_x, next_y, move in [
             (-1, 0, "u"),
@@ -269,10 +275,7 @@ def dfs(file_path):
                     "Memory": "{:.2f}".format(memory / (1024 * 1024)),
                 }
 
-            if (
-                not check_deadlock(new_stones, index_wall, switch_positions)
-                and not (new_x, new_y, frozenset(new_stones)) in explored
-            ):
+            if not check_deadlock(new_stones, index_wall, switch_positions):
                 frontier.put(
                     (
                         (new_x, new_y),
@@ -282,7 +285,6 @@ def dfs(file_path):
                         new_stones_value,
                     )
                 )
-                nodes_explored = nodes_explored + 1
     return "No Solution"
 
 
@@ -314,7 +316,10 @@ def ucs(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
+        if (ax, ay, stones) in explored:
+            continue
         explored.add((ax, ay, stones))
+        nodes_explored = nodes_explored + 1
 
         for next_x, next_y, move in [
             (-1, 0, "u"),
@@ -350,10 +355,7 @@ def ucs(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if (
-                not check_deadlock(new_stones, index_wall, switch_positions)
-                and not (new_x, new_y, frozenset(new_stones)) in explored
-            ):
+            if not check_deadlock(new_stones, index_wall, switch_positions):
                 frontier.put(
                     (
                         new_cost,
@@ -366,7 +368,6 @@ def ucs(file_path):
                         ),
                     )
                 )
-                nodes_explored = nodes_explored + 1
     return "No Solution"
 
 
@@ -398,7 +399,10 @@ def astar(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
+        if (ax, ay, stones) in explored:
+            continue
         explored.add((ax, ay, stones))
+        nodes_explored = nodes_explored + 1
 
         for next_x, next_y, move in [
             (-1, 0, "u"),
@@ -434,10 +438,7 @@ def astar(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if (
-                not check_deadlock(new_stones, index_wall, switch_positions)
-                and not (new_x, new_y, frozenset(new_stones)) in explored
-            ):
+            if not check_deadlock(new_stones, index_wall, switch_positions):
                 frontier.put(
                     (
                         new_cost
@@ -453,7 +454,6 @@ def astar(file_path):
                         ),
                     )
                 )
-                nodes_explored = nodes_explored + 1
     return "No Solution"
 
 
@@ -485,7 +485,10 @@ def gbfs(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
+        if (ax, ay, stones) in explored:
+            continue
         explored.add((ax, ay, stones))
+        nodes_explored = nodes_explored + 1
 
         for next_x, next_y, move in [
             (-1, 0, "u"),
@@ -521,10 +524,7 @@ def gbfs(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if (
-                not check_deadlock(new_stones, index_wall, switch_positions)
-                and not (new_x, new_y, frozenset(new_stones)) in explored
-            ):
+            if not check_deadlock(new_stones, index_wall, switch_positions):
                 frontier.put(
                     (
                         calculate_heuristics(
@@ -539,7 +539,6 @@ def gbfs(file_path):
                         ),
                     )
                 )
-                nodes_explored = nodes_explored + 1
     return "No Solution"
 
 
@@ -571,7 +570,10 @@ def swarm(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
+        if (ax, ay, stones) in explored:
+            continue
         explored.add((ax, ay, stones))
+        nodes_explored = nodes_explored + 1
 
         for next_x, next_y, move in [
             (-1, 0, "u"),
@@ -607,10 +609,7 @@ def swarm(file_path):
                 new_cost += 1
             new_path = new_path + move
 
-            if (
-                not check_deadlock(new_stones, index_wall, switch_positions)
-                and not (new_x, new_y, frozenset(new_stones)) in explored
-            ):
+            if not check_deadlock(new_stones, index_wall, switch_positions):
                 frontier.put(
                     (
                         new_cost
@@ -627,7 +626,6 @@ def swarm(file_path):
                         ),
                     )
                 )
-                nodes_explored = nodes_explored + 1
     return "No Solution"
 
 
@@ -655,7 +653,10 @@ def convergent_swarm(file_path):
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
+        if (ax, ay, stones) in explored:
+            continue
         explored.add((ax, ay, stones))
+        nodes_explored = nodes_explored + 1
         for next_x, next_y, move in [
             (-1, 0, "u"),
             (0, -1, "l"),
@@ -686,10 +687,7 @@ def convergent_swarm(file_path):
             else:
                 new_cost += 1
             new_path = new_path + move
-            if (
-                not check_deadlock(new_stones, index_wall, switch_positions)
-                and not (new_x, new_y, frozenset(new_stones)) in explored
-            ):
+            if not check_deadlock(new_stones, index_wall, switch_positions):
                 frontier.put(
                     (
                         new_cost
@@ -706,7 +704,6 @@ def convergent_swarm(file_path):
                         ),
                     )
                 )
-                nodes_explored = nodes_explored + 1
     return "No solution"
 
 
@@ -740,3 +737,38 @@ def write_result_to_output(level):
     file.close()
     print("Done!")
     print(f"Output file: {path_output}")
+
+
+def write_result_to_output_for_list():
+    start_level = 1
+    end_level = 15
+    for level in range(start_level, end_level + 1):
+        level = int(level)
+        path_input = (
+            f"./input/input-0{level}.txt" if level < 10 else f"./input/input-{level}.txt"
+        )
+        path_output = (
+            f"./output/output-0{level}.txt"
+            if level < 10
+            else f"./output/output-{level}.txt"
+        )
+        name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
+        algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
+        file = open(path_output, "w")
+        for i in range(len(algo)):
+            file.write(f"{name_algo[i]}\n")
+            result = algo[i](path_input)
+            if result == "No Solution":
+                file.write("No Solution\n")
+            elif result == "TimeOut":
+                file.write("Time Out\n")
+            else:
+                file.write(f"Step: {result['Step']}, ")
+                file.write(f"Weight: {result['Weight']}, ")
+                file.write(f"Node: {result['Node']}, ")
+                file.write(f"Time: {result['Time']} ms, ")
+                file.write(f"Memory: {result['Memory']} MB\n")
+                file.write(f"{result['Path']}\n")
+        file.close()
+        print("Done!")
+        print(f"Output file: {path_output}")
