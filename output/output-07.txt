@@ -1,0 +1,21 @@
+BFS
+Step: 21, Weight: 66, Node: 184, Time: 5.00 ms, Memory: 0.07 MB
+llldlddrUluRdrUluRdrU
+DFS
+Step: 37, Weight: 82, Node: 224, Time: 16.88 ms, Memory: 0.09 MB
+rrululldldrdllldldrrUluRldrrUluRldrrU
+UCS
+Step: 21, Weight: 66, Node: 223, Time: 15.75 ms, Memory: 0.06 MB
+ldlllddrUluRdrUluRdrU
+A*
+Step: 21, Weight: 66, Node: 58, Time: 13.07 ms, Memory: 0.03 MB
+llldlddrUluRdrUluRdrU
+GBFS
+Step: 21, Weight: 66, Node: 34, Time: 2.40 ms, Memory: 0.03 MB
+llldlddrUluRdrUluRdrU
+Swarm
+Step: 21, Weight: 66, Node: 35, Time: 3.75 ms, Memory: 0.03 MB
+llldlddrUluRdrUluRdrU
+Convergent Swarm
+Step: 21, Weight: 66, Node: 30, Time: 0.00 ms, Memory: 0.03 MB
+llldlddrUluRdrUluRdrU

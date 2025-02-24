@@ -1,4 +1,5 @@
 BFS
+<<<<<<< HEAD
 Step: 37, Weight: 91, Node: 478, Time: 17.11 ms, Memory: 0.07 MB
 uuluuRlddrrurruullDDullddrRlddrruUluR
 DFS
@@ -18,4 +19,25 @@ Step: 37, Weight: 91, Node: 159, Time: 5.17 ms, Memory: 0.05 MB
 uuluuRlddrrurruullDDullddrRlddrruUluR
 Convergent Swarm
 Step: 41, Weight: 95, Node: 113, Time: 3.29 ms, Memory: 0.04 MB
+=======
+Step: 37, Weight: 91, Node: 165, Time: 15.62 ms, Memory: 0.08 MB
+uuluuRlddrrurruullDDullddrRlddrruUluR
+DFS
+Step: 71, Weight: 125, Node: 101, Time: 0.00 ms, Memory: 0.07 MB
+rrurruullldlluuRlddrrrdrruuluullDDrrrddlldlluuRlluurrdrrrddllUllluurrdR
+UCS
+Step: 37, Weight: 91, Node: 184, Time: 15.63 ms, Memory: 0.06 MB
+uuluuRlddrrruruullDDullddrRlddrruUluR
+A*
+Step: 37, Weight: 91, Node: 114, Time: 0.00 ms, Memory: 0.05 MB
+uuluuRlddrrurruullDDullddrRlddrruUluR
+GBFS
+Step: 41, Weight: 95, Node: 74, Time: 0.00 ms, Memory: 0.04 MB
+uuluuRlddrrurruullDDrdddlluuRurrrddllUluR
+Swarm
+Step: 37, Weight: 91, Node: 107, Time: 0.00 ms, Memory: 0.05 MB
+uuluuRlddrrurruullDDullddrRlddrruUluR
+Convergent Swarm
+Step: 41, Weight: 95, Node: 77, Time: 15.62 ms, Memory: 0.05 MB
+>>>>>>> 252d12ad096ee75bf7e23931291b8216e0cbeb76
 uuluuRlddrrurruullDDrdddlluuRurrrddllUluR
