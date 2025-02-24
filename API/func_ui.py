@@ -1,7 +1,6 @@
 import sys
 import pygame
 
-
 element_size = 64
 wall = pygame.image.load("assets\\resources\wall.png")
 space = pygame.image.load("assets\\resources/space.png")
@@ -10,7 +9,7 @@ stone_docked = pygame.image.load("assets\\resources/stone_docked.png")
 player = pygame.image.load("assets\\resources\player.png")
 player_docked = pygame.image.load("assets\\resources\player_docked.png")
 switch = pygame.image.load("assets\\resources\switch.png")
-background = 255, 204, 229
+background = 240, 210, 225
 
 def map_open(level):
     path = "./input/input-"
@@ -20,13 +19,15 @@ def map_open(level):
         path = path + "0" + str(level) + ".txt"
     else:
         path = path + str(level) + ".txt"
-
+    
+    max_size = 0
     with open(path, "r") as file:
         lines = file.readlines()
         for line in lines:
             matrix.append(list(line))
 
     return matrix
+
 
 def GetKey():
     while 1:
