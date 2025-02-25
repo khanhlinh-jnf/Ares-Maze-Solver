@@ -9,6 +9,11 @@ from API.algorithms import *
 
 def main():
     pygame.init()
+    pygame.mixer.init()
+    pygame.mixer.music.load("assets\\background_music.mp3") 
+    pygame.mixer.music.play(-1) 
+    pygame.mixer.music.set_volume(0.5)
+
     pygame.display.set_caption("Ares's Adventure")
     level = StartGame()
     game = Game(map_open(level))
