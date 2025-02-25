@@ -1,7 +1,7 @@
 import sys
 import pygame
 
-element_size = 64
+element_size = 50
 wall = pygame.image.load("assets\\resources\wall.png")
 space = pygame.image.load("assets\\resources/space.png")
 stone = pygame.image.load("assets\\resources/stone.png")
@@ -94,25 +94,25 @@ def playByBot(game, move):
         game.Ares_move("R")
 
 
-def print_game(matrix, screen):
+def print_game(matrix, screen, header_height):
     screen.fill(background)
     x = 0
-    y = 0
+    y = 15
     for row in matrix:
         for char in row:
-            if char == " ":  # floor
+            if char == " ": 
                 screen.blit(space, (x, y))
-            elif char == "#":  # wall
+            elif char == "#":  
                 screen.blit(wall, (x, y))
-            elif char == "@":  # worker on floor
+            elif char == "@":  
                 screen.blit(player, (x, y))
-            elif char == ".":  # dock
+            elif char == ".":  
                 screen.blit(switch, (x, y))
-            elif char == "*":  # box on dock
+            elif char == "*":  
                 screen.blit(stone_docked, (x, y))
-            elif char == "$":  # box
+            elif char == "$":  
                 screen.blit(stone, (x, y))
-            elif char == "+":  # worker on dock
+            elif char == "+":  
                 screen.blit(player_docked, (x, y))
             x = x + element_size
         x = 0
@@ -169,7 +169,7 @@ def display_header(width, height, screen, step):
     msg = "Step: " + str(step)
     text_surface = font.render(msg, True, (0, 0, 0))
     screen.blit(header, (0, 0))
-    screen.blit(text_surface, (24, 5))
+    screen.blit(text_surface, (20, 5))
 
 
 def display_header_final(width, height, screen, output):
@@ -201,9 +201,9 @@ def display_footer(width, offset, footer_height, screen):
     footer.fill((255, 255, 255))
 
     options = [
-        "Choose algorithm:                                             Intruction:",
-        "1. BFS      2. DFS        3. UCS                          q - quit  o - output result  r - reset",
-        "4. A*        5. GBFS      6. Swarm                       p - pause/continue aminimation",
+        "Choose algorithm:                         Intruction:",
+        "[1] BFS   [2] DFS     [3] UCS        [q] quit  [o] get output  [r] reset",
+        "[4] A*     [5] GBFS   [6] Swarm     [p] pause/continue aminimation",
     ]
 
     # Render text
@@ -211,4 +211,4 @@ def display_footer(width, offset, footer_height, screen):
 
     for i, line in enumerate(options):
         text_surface = font.render(line, True, (0, 0, 0))  # Black text
-        screen.blit(text_surface, (24, offset + 5 + (i * 20)))
+        screen.blit(text_surface, (5, offset + 5 + (i * 20)))

@@ -1,14 +1,13 @@
 import copy
 
 TIME_LIMITED = 1800
-element_size = 64
+element_size = 50
 
 
 class Game:
 
     def __init__(self, matrix):
         self.matrix = matrix
-        self.width = 0
         self.width, self.height = self.load_size()
         self.step = 0
 

@@ -14,7 +14,6 @@ def main():
     game = Game(map_open(level))
     caption = "Ares's Adventure - Level " + level
     pygame.display.set_caption(caption)
-    size = game.load_size()
     width = game.get_width()
     height = game.get_height()
     header_height = 64
@@ -35,7 +34,8 @@ def main():
     file_path = os.path.join("input", file)
 
     while True :
-        print_game(game.get_matrix(),screen)
+        print_game(game.get_matrix(),screen, header_height)
+
         display_footer(width, height + header_height, footer_height, screen)
         if flagEnd:
             display_header_final(width, header_height, screen, output)
@@ -63,6 +63,7 @@ def main():
                     sol = ""
                     flagSolve = 0
                     flagAuto = 0
+                    flagEnd = 0
                     i = 0
                 elif event.key == pygame.K_o:
                     pygame.display.flip()
