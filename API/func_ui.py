@@ -11,23 +11,6 @@ player_docked = pygame.image.load("assets\\resources\player_docked.png")
 switch = pygame.image.load("assets\\resources\switch.png")
 background = 240, 210, 225
 
-def map_open(level):
-    path = "./input/input-"
-    matrix = []
-
-    if int(level) < 10:
-        path = path + "0" + str(level) + ".txt"
-    else:
-        path = path + str(level) + ".txt"
-    
-    max_size = 0
-    with open(path, "r") as file:
-        lines = file.readlines()
-        for line in lines:
-            matrix.append(list(line))
-
-    return matrix
-
 
 def GetKey():
     while 1:
@@ -75,6 +58,9 @@ def ask(screen, question):
 def StartGame():
     start = pygame.display.set_mode((320,240))
     level = ask(start,"Select Level")
+    if (int(level) < 0) or (int(level) > 17):
+        print("ERROR: Invalid Level: "+str(level))
+        sys.exit(2)
     if int(level) >= 0:
         return level
     else:
@@ -97,7 +83,7 @@ def playByBot(game, move):
 def print_game(matrix, screen, header_height):
     screen.fill(background)
     x = 0
-    y = 15
+    y = header_height
     for row in matrix:
         for char in row:
             if char == " ": 
@@ -163,10 +149,10 @@ def display_information(screen, msg):
 pygame.font.init()
 font = pygame.font.SysFont("timesnewroman", 14)  # Chọn font mặc định, kích thước 36
 
-def display_header(width, height, screen, step):
+def display_header(width, height, screen, step, weight):
     header = pygame.Surface((width, height))
     header.fill((255, 255, 255))
-    msg = "Step: " + str(step)
+    msg = "Step: " + str(step) + "                Weight: " + str(weight)
     text_surface = font.render(msg, True, (0, 0, 0))
     screen.blit(header, (0, 0))
     screen.blit(text_surface, (20, 5))

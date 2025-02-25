@@ -6,10 +6,51 @@ element_size = 50
 
 class Game:
 
-    def __init__(self, matrix):
-        self.matrix = matrix
-        self.width, self.height = self.load_size()
+    def __init__(self):
+        self.matrix = []
+        self.width = self.height = 0
         self.step = 0
+        self.stoneDict = {}
+        self.weightList = []
+        self.weight = 0
+
+
+    def map_open(self, level):
+        path = "./input/input-"
+
+        if int(level) < 10:
+            path = path + "0" + str(level) + ".txt"
+        else:
+            path = path + str(level) + ".txt"
+        
+        with open(path, "r") as file:
+            lines = file.readlines()
+            if lines:
+                numLine = lines[0].strip()
+                self.weightList.extend(map(int, numLine.split()))
+                for line in lines[1:]: 
+                    self.matrix.append(list(line))
+        self.width, self.height = self.load_size()
+
+    def GetStones(self):
+        stones = []
+        x = 0
+        y = 0
+        for row in self.matrix:
+            for pos in row:
+                if pos == '$' or pos == '*':
+                    stones.append((y, x))
+                x += 1
+            x = 0
+            y += 1
+        return stones
+
+    def GetStonesDict(self):
+        stones = self.GetStones()
+        for stone, value in zip(stones, self.weightList):
+            self.stoneDict[stone] = value
+        return self.stoneDict
+
 
     def load_size(self):
         x = 0
@@ -17,13 +58,13 @@ class Game:
         for row in self.matrix:
             if len(row) > x:
                 x = len(row)
-        return ((x - 1) * element_size, (y - 1) * element_size)
+        return (x * element_size, y * element_size)
 
     def reset(self, original_matrix):
         self.matrix = copy.deepcopy(original_matrix)
-        self.width = 0
-        self.width, self.height = self.load_size()
         self.step = 0
+        self.weight = 0
+        self.stoneDict = self.GetStonesDict()
 
     def get_width(self):
         return self.width
@@ -33,6 +74,9 @@ class Game:
 
     def get_step(self):
         return self.step
+    
+    def get_weight(self):
+        return self.weight
 
     def get_matrix(self):
         return self.matrix
@@ -41,7 +85,6 @@ class Game:
         for row in self.matrix:
             for char in row:
                 print(char, end="")
-            print()
 
     def valid_move(self, i, j, direction):
 
@@ -78,6 +121,11 @@ class Game:
         current = self.matrix[new_x][new_y]
 
         if current in ("$", "*"):
+            # Calculate the new weight
+            self.weight += self.stoneDict.get((new_x, new_y))
+            self.stoneDict[(next_x, next_y)] = self.stoneDict.pop((new_x, new_y))
+            
+
             if self.matrix[next_x][next_y] in (" ", "."):
                 self.matrix[next_x][next_y] = (
                     "*" if self.matrix[next_x][next_y] == "." else "$"

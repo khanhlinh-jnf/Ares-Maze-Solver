@@ -12,11 +12,13 @@ def main():
     pygame.mixer.init()
     pygame.mixer.music.load("assets\\background_music.mp3") 
     pygame.mixer.music.play(-1) 
-    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.set_volume(0)
 
     pygame.display.set_caption("Ares's Adventure")
     level = StartGame()
-    game = Game(map_open(level))
+    game = Game()
+    game.map_open(level)
+    game.GetStonesDict()
     caption = "Ares's Adventure - Level " + level
     pygame.display.set_caption(caption)
     width = game.get_width()
@@ -45,7 +47,7 @@ def main():
         if flagEnd:
             display_header_final(width, header_height, screen, output)
         else:
-            display_header(width, header_height, screen, game.get_step())
+            display_header(width, header_height, screen, game.get_step(), game.get_weight())
 
         if sol == "No Solution":
             display_information(screen,"Cannot")

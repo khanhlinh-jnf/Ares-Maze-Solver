@@ -122,9 +122,13 @@ def bfs(file_path):
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
+            step_not_push_stone = 0
+            for c in path:
+                if c.islower():
+                    step_not_push_stone += 1
             return {
                 "Step": len(path),
-                "Weight": cost,
+                "Weight": cost - step_not_push_stone,
                 "Node": nodes_explored,
                 "Path": path,
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -173,9 +177,14 @@ def bfs(file_path):
                 end_time = time.time()
                 _, memory = trlloc.get_traced_memory()
                 trlloc.stop()
+                step_not_push_stone = 0
+                for c in new_path:
+                    if c.islower():
+                        step_not_push_stone += 1
                 return {
+                    
                     "Step": len(new_path),
-                    "Weight": new_cost,
+                    "Weight": new_cost - step_not_push_stone,
                     "Node": nodes_explored,
                     "Path": new_path,
                     "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -215,9 +224,13 @@ def dfs(file_path):
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
+            step_not_push_stone = 0
+            for c in path:
+                if c.islower():
+                    step_not_push_stone += 1
             return {
                 "Step": len(path),
-                "Weight": cost,
+                "Weight": cost - step_not_push_stone,
                 "Node": nodes_explored,
                 "Path": path,
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -266,9 +279,14 @@ def dfs(file_path):
                 end_time = time.time()
                 _, memory = trlloc.get_traced_memory()
                 trlloc.stop()
+                step_not_push_stone = 0
+                for c in new_path:
+                    if c.islower():
+                        step_not_push_stone += 1
                 return {
+                    
                     "Step": len(new_path),
-                    "Weight": new_cost,
+                    "Weight": new_cost - step_not_push_stone,
                     "Node": nodes_explored,
                     "Path": new_path,
                     "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -307,9 +325,13 @@ def ucs(file_path):
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
+            step_not_push_stone = 0
+            for c in path:
+                if c.islower():
+                    step_not_push_stone += 1
             return {
                 "Step": len(path),
-                "Weight": cost,
+                "Weight": cost - step_not_push_stone,
                 "Node": nodes_explored,
                 "Path": path,
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -390,9 +412,13 @@ def astar(file_path):
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
+            step_not_push_stone = 0
+            for c in path:
+                if c.islower():
+                    step_not_push_stone += 1
             return {
                 "Step": len(path),
-                "Weight": cost,
+                "Weight": cost - step_not_push_stone,
                 "Node": nodes_explored,
                 "Path": path,
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -476,9 +502,13 @@ def gbfs(file_path):
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
+            step_not_push_stone = 0
+            for c in path:
+                if c.islower():
+                    step_not_push_stone += 1
             return {
                 "Step": len(path),
-                "Weight": cost,
+                "Weight": cost - step_not_push_stone,
                 "Node": nodes_explored,
                 "Path": path,
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -561,9 +591,13 @@ def swarm(file_path):
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
+            step_not_push_stone = 0
+            for c in path:
+                if c.islower():
+                    step_not_push_stone += 1
             return {
                 "Step": len(path),
-                "Weight": cost,
+                "Weight": cost - step_not_push_stone,
                 "Node": nodes_explored,
                 "Path": path,
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
@@ -645,9 +679,13 @@ def convergent_swarm(file_path):
             end_time = time.time()
             _, memory = trlloc.get_traced_memory()
             trlloc.stop()
+            step_not_push_stone = 0
+            for c in path:
+                if c.islower():
+                    step_not_push_stone += 1
             return {
                 "Step": len(path),
-                "Weight": cost,
+                "Weight": cost - step_not_push_stone,
                 "Node": nodes_explored,
                 "Path": path,
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
