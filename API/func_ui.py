@@ -12,6 +12,10 @@ switch = pygame.image.load("assets\\resources\switch.png")
 background = 240, 210, 225
 
 
+# def CheckValidLevel(level):
+#     for i in level:
+#         if i 
+
 def GetKey():
     while 1:
         event = pygame.event.poll()
@@ -23,7 +27,7 @@ def GetKey():
         else:
             pass
 
-def DisplayBox(screen, message):
+def DisplayBox(screen, message, firstLogin):
   fontobject = pygame.font.SysFont("timesnewroman",18)
   pygame.draw.rect(screen, (0,0,0),
                    ((screen.get_width() / 2) - 100,
@@ -36,12 +40,16 @@ def DisplayBox(screen, message):
   if len(message) != 0:
     screen.blit(fontobject.render(message, 1, (255,255,255)),
                 ((screen.get_width() / 2) - 100, (screen.get_height() / 2) - 10))
+    if not firstLogin:
+        screen.blit(fontobject.render("Enter valid number", 1, (255,255,255)),
+            ((screen.get_width() / 2) - 100, (screen.get_height() / 2) + 10))
   pygame.display.flip()
 
-def ask(screen, question):
+def ask(screen, firstLogin):
+  question = "Select level"
   pygame.font.init()
   current_string = []
-  DisplayBox(screen, question + ": " + "".join(current_string))
+  DisplayBox(screen, question + ": " + "".join(current_string), firstLogin)
   while 1:
     inkey = GetKey()
     if inkey == pygame.K_BACKSPACE:
@@ -52,20 +60,23 @@ def ask(screen, question):
       current_string.append("_")
     elif inkey <= 127:
       current_string.append(chr(inkey))
-    DisplayBox(screen, question + ": " + "".join(current_string))
+    DisplayBox(screen, question + ": " + "".join(current_string), firstLogin)
   return "".join(current_string)
 
-def StartGame():
+def CheckValidNumber(str):
+    for i in str:
+        if i < "0" or i > "9":
+            return False
+    if int(str) > 17:
+        return False
+    return True
+
+def StartGame(firstLogin):
     start = pygame.display.set_mode((320,240))
-    level = ask(start,"Select Level")
-    if (int(level) < 0) or (int(level) > 17):
-        print("ERROR: Invalid Level: "+str(level))
-        sys.exit(2)
-    if int(level) >= 0:
-        return level
-    else:
-        print("ERROR: Invalid Level: "+str(level))
-        sys.exit(2)
+    level = ask(start, firstLogin)
+    if CheckValidNumber(level):
+        return level, True
+    return -1, False
 
 
 def playByBot(game, move):
