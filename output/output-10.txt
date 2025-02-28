@@ -1,21 +1,21 @@
 BFS
-Step: 71, Weight: 179, Node: 405, Time: 22.72 ms, Memory: 0.12 MB
-uuuurRlldddrrruuruulDDDuullldddrrdrruLLLrruuulllddDlddrUUUdrrruuulllldR
+Step: 55, Weight: 160, Node: 2469, Time: 104.82 ms, Memory: 0.81 MB
+uuuurRRRurDDDurrddlLLLLLrruuulllddDlddrUUUdrrruuulllldR
 DFS
-Step: 109, Weight: 235, Node: 347, Time: 28.45 ms, Memory: 0.17 MB
-lurrrruurulLrrdlddrdllulluulurRRllldrddrrruuruulDDDurullllldrddrrdrruLLLrruurullllldrdDlddrUUUdrrruurullllldR
+Step: 289, Weight: 260, Node: 2284, Time: 129.56 ms, Memory: 0.92 MB
+lurrrrrrrrrrullurrullulllldLrrrdrrrrdlldrrdlllllllulluulurRRRRllllldrddrrrrrrrrrullurrullullDlllllldrddrrrrrrrrrullulLrrrrdlldrrdllllllluruuRRRRllllddrrrrrrdlllllllulluururrrrurrrrdlDrdLrdllllllllluururrrrdrrDrrdlLLLLLLLrrrrrrrrullurrullulllldlllldrdDlddrUUUdrrrrrrrrrullurrullulllldlllldR
 UCS
-Step: 71, Weight: 179, Node: 405, Time: 30.12 ms, Memory: 0.12 MB
-uuuruRldlddrrruuruulDDDuulldlddrrdrruLLLrruuulldldDlddrUUUdrrruuulllldR
+Step: 63, Weight: 120, Node: 2475, Time: 127.37 ms, Memory: 0.68 MB
+uuuruRldlddrrruuruulDDDurrddlLLLrruuulldldDlddrUUUdrrruuulllldR
 A*
-Step: 71, Weight: 179, Node: 395, Time: 20.72 ms, Memory: 0.13 MB
-uuuurRldlddrrruuruulDDDuulldlddrrdrruLLLrruuulllddDlddrUUUdrrruuulllldR
+Step: 63, Weight: 120, Node: 1644, Time: 83.57 ms, Memory: 0.53 MB
+uuuurRldlddrrruuruulDDDurrddlLLLrruuulllddDlddrUUUdrrruuulllldR
 GBFS
-Step: 71, Weight: 179, Node: 299, Time: 31.25 ms, Memory: 0.10 MB
-uuuurRldlddrrruuruulDDDuulldlddrrdrruLLLrruuulllddDlddrUUUdrrruuulllldR
+Step: 63, Weight: 120, Node: 625, Time: 29.07 ms, Memory: 0.20 MB
+uuuurRldlddrrruuruulDDDurrddlLLLrruuulllddDlddrUUUdrrruuulllldR
 Swarm
-Step: 71, Weight: 179, Node: 355, Time: 31.25 ms, Memory: 0.12 MB
-uuuurRldlddrrruuruulDDDuulldlddrrdrruLLLrruuulllddDlddrUUUdrrruuulllldR
+Step: 63, Weight: 120, Node: 1251, Time: 70.18 ms, Memory: 0.44 MB
+uuuurRldlddrrruuruulDDDurrddlLLLrruuulllddDlddrUUUdrrruuulllldR
 Convergent Swarm
-Step: 71, Weight: 179, Node: 307, Time: 31.25 ms, Memory: 0.13 MB
-uuuurRldlddrrruuruulDDDuulldlddrrdrruLLLrruuulllddDlddrUUUdrrruuulllldR
+Step: 63, Weight: 120, Node: 677, Time: 39.69 ms, Memory: 0.22 MB
+uuuurRldlddrrruuruulDDDurrddlLLLrruuulllddDlddrUUUdrrruuulllldR

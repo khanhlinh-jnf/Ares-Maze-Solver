@@ -1,21 +1,21 @@
 BFS
-Step: 34, Weight: 97, Node: 199, Time: 0.00 ms, Memory: 0.08 MB
-luullDurrddldddlluuuRRluurrdDDDldR
+Step: 58, Weight: 260, Node: 48953, Time: 3378.49 ms, Memory: 21.28 MB
+rrrDDldRRRRuuuuullDurrdddddRlllluuuRRluurrdDDDldRdrrULLdlU
 DFS
-Step: 126, Weight: 225, Node: 202, Time: 23.56 ms, Memory: 0.12 MB
-rdllldrdllluuurrruullDurrddrrdllldrdllluuuRRRllldddrrrrruuuLrdllldrdllluuuruurrdDrrdlLrrddllllluuurrDDrdrruullluruullddldddrRR
+Step: 1594, Weight: 1890, Node: 37769, Time: 3519.22 ms, Memory: 49.15 MB
+rrrrrrrrrrrrddldrdllllllllllllurrruUrurrrrrrrrddldrdlllllllllllluuururRRRRRRRRlllllllllldddrrrrrrrrrrrruuuLrddldrdllllllllllllurrrrrruuruluullDurrddrrrRlllllLrrrrrrdldldrrrrdlllllllllllluuururRRRRRRlllllllldddrrrrrrrrruuruLrdldldrrrruuuLrddldrdllllllllllllurrrrrrrrruuuLrRllLrrrdldldrrrrdllllllllllllurrrrrruuUrrrrdldldrrrrdllllllllllllurrruuruuurrDDrrrrdldldrrrruuuLrddldrdllllllllllllurrrrrrrrruuulllDrurrRlllllllllldddrrrrrrrrrrrruuuLrddldrdllllllllllllurrrrrrUUrurrddldrrrruuulLrrddldrdllllllllllllurrrrrruuruLrrRRllllddldrrrrrrruuuLrddldrdllllllllllllurrrrrruurulLLrrrrrddldrrrrdlllllllllllluuururRllldddrrrrrrrrrrrruuulLrrddldrdllllllllllllurrrrrruurullLrrrdldldrrrrrrrdlllllllllllluuururRRRluurrdDlllllldddrrrrrrrrrrrruuullLrrrddldrdllllllllllllurrrrrruUruLrdldldrrrrrrrdllllllllllllurrruuruRllllldddrrrrrrrrrrrruuulllLrrrrddldrdllllllllllllurrrrrruuURRRllllllllldddrrrrrrrrrrrruuulLLrrrddldrdllllllllllllurrrrrruuulluurrDDDruRlllllllldddrrrrrrrrrrrruuullLLrrrrddldrdllllllllllllurrrrrrUldrrrrrrrdllllllllllllurrruururrDDldRRRRRlllllllllldrrrrrrrrrrrruLrdllllllllllllurrrrrrrrururullLrrrrrddldrdllllllllllllurrrrrrrrrRlllllllllldrrrrrrrrrrrruuuulllllLrrrrrrdddLrdllllllllllllurrrrrrrrrRlllllllllluururrrRRRRRRlllllllllldddrrrrrrrrrrdrruLruuuLrddldrdllllllllllllurrrrrrrrrRlllllllllldrrrrrrrrrrrruuuulLrrdddLrdllllllllllllurrrrrrrrruuruLrrrddldLrrdllllllllllllurrrrrrrrururulLrrrrddldrdllllllllllllurrrrrruuuRRRRlllllllllldddrrrrrrrrdrrrrullLrrrdllllUrrrruuuLLLLLrrrrrddldrdllllllllllllurrrrrruuUrrrrrrddldrdllllllllllllurrruuruuurrDDDDldRRRRRlllllllllldrrrrrrrrrrrruLLLLLLrrrrrrdlllllllU
 UCS
-Step: 34, Weight: 97, Node: 325, Time: 33.51 ms, Memory: 0.12 MB
-luullDurrdddddllluuuRRluurrdDDDldR
+Step: 59, Weight: 190, Node: 44406, Time: 3653.62 ms, Memory: 14.79 MB
+rrrDDururruullDurrddddddlllluRuuuRRluurrdDDDlddlluRdrURRdrU
 A*
-Step: 34, Weight: 97, Node: 94, Time: 15.63 ms, Memory: 0.05 MB
-luullDurrddldddlluuuRRluurrdDDDldR
+Step: 59, Weight: 190, Node: 9797, Time: 729.70 ms, Memory: 3.66 MB
+rrrDDuurrruullDurrddddldldlluRuuuRRluurrdDDDlddlluRdrURRdrU
 GBFS
-Step: 34, Weight: 97, Node: 78, Time: 15.63 ms, Memory: 0.05 MB
-luullDurrddldddlluuuRRluurrdDDDldR
+Step: 72, Weight: 190, Node: 426, Time: 25.16 ms, Memory: 0.19 MB
+rrrDurrruullDurrddddldllllluururrRRluurrdDDDldRRdrUruuulldlullldDldRRdrU
 Swarm
-Step: 34, Weight: 97, Node: 93, Time: 0.00 ms, Memory: 0.05 MB
-luullDurrddldddlluuuRRluurrdDDDldR
+Step: 61, Weight: 190, Node: 4521, Time: 328.17 ms, Memory: 1.55 MB
+rrrDDldRRdrUruuuuullDurrdddddllluuuRRluurrdDDDuulldlddrrRRdrU
 Convergent Swarm
-Step: 34, Weight: 97, Node: 78, Time: 15.62 ms, Memory: 0.05 MB
-luullDurrddldddlluuuRRluurrdDDDldR
+Step: 73, Weight: 240, Node: 792, Time: 54.18 ms, Memory: 0.32 MB
+rrrDurrruullDurrddddldllllluururrRRluurrdDDDlddrruLdlUruuullldDldRRRRRdrU

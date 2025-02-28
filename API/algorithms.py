@@ -46,6 +46,7 @@ def load_maze(file_path):
                     stone_positions.add((i, j))
                     stones_value[(i, j)] = value_of_stones[index]
                     index = index + 1
+            
     return ares_position, stone_positions, switch_positions, index_wall, stones_value
 
 
@@ -134,6 +135,7 @@ def bfs(file_path):
                 "Time": "{:.2f}".format(1000 * (end_time - start_time)),
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
+
         if (ax, ay, stones) in explored:
             continue
         explored.add((ax, ay, stones))
@@ -425,6 +427,7 @@ def astar(file_path):
                 "Memory": "{:.2f}".format(memory / (1024 * 1024)),
             }
 
+        
         if (ax, ay, stones) in explored:
             continue
         explored.add((ax, ay, stones))

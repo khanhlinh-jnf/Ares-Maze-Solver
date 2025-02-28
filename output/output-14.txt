@@ -1,21 +1,21 @@
 BFS
-Step: 99, Weight: 574, Node: 8593, Time: 402.35 ms, Memory: 2.74 MB
+Step: 99, Weight: 510, Node: 8593, Time: 642.76 ms, Memory: 2.72 MB
 uuulldLullddrUluRRRRRRurDDDDllddrrUruLddlluulllUUluRRRRRurDDDDLLddrrUruLLruuullddDDuuuullldddrRdrUU
 DFS
-Step: 723, Weight: 1868, Node: 1948, Time: 173.23 ms, Memory: 1.32 MB
+Step: 723, Weight: 1230, Node: 1948, Time: 190.96 ms, Memory: 1.35 MB
 rruuulllldLrurrrrdddrdldllulullUlluurDlurrrrrrrdddrdldllululluUruLrrrrrdddrdldllululluulldRlurrrurrrrdddrdldllulullUlluuRRRRRRlllllldrdrUrurrrurDllllLrrrrrDDDlllllulluuRRRRRRlllllldrrddrrrddrrUruLrdldllulurRllllullurrrurrrurDllllllldrrddrrrddrruruLrdldlluluruuurrDDDLruuullllllldrrddrrRldrdrrUULrrdldllulullullurrrurrrrdDuullllllldrrddrrdrdrruruLrdldllulullullurrrurrddDlllullurrrurrrrdddLLrrrdldllUUrruuullllllldrrddrRRRllllullurrrurrrrddDllldrdrrUUrdldllulurUdrrrdldllulullullurrrurrrrdDDllldrdrrUruLrdldllulurRluUddlllullurrrurRllllldrrddrrrddrruruLLrrdldllulullullurrrurrRlllllldrrddrrdrdrrurullLLruuururDllllllldrrddRRllullurrrurrddDrrrdldllUdrrurullLuuurrDDDllLrddrrUruLLrrdldlluUrruuulldDDDlurrruuullllllldrrddRRdrUU
 UCS
-Step: 125, Weight: 526, Node: 8678, Time: 811.57 ms, Memory: 2.72 MB
+Step: 125, Weight: 430, Node: 8678, Time: 699.58 ms, Memory: 2.72 MB
 uuulldLullddrUluRRRRRRurDDDuulldddddrruruLLrddllulullUUluRRRRRurDDDuulllldlddrrdrdrruruLuuullddDDuuuurrdddLruuulllldlddrrdrUU
 A*
-Step: 125, Weight: 526, Node: 8331, Time: 929.99 ms, Memory: 2.70 MB
+Step: 125, Weight: 430, Node: 8331, Time: 997.32 ms, Memory: 2.69 MB
 uuulldLullddrUluRRRRRRurDDDuulldddddrruruLLrddllulullUUluRRRRRurDDDuulllldlddrrdrdrruruLuuullddDDuuuurrdddLruuulllldlddrrdrUU
 GBFS
-Step: 151, Weight: 682, Node: 2617, Time: 268.59 ms, Memory: 0.85 MB
+Step: 151, Weight: 570, Node: 2617, Time: 362.03 ms, Memory: 0.84 MB
 uuulldLrurrdddlllUlUluRRRRRRurDllllllddrUluRRdlddrrruuurrDDDllllluuurRldlddrrrddrrUruLLrddlluUUdllluururRRurDDDDllddrrUruLLLrruuullDDDDuuuulldlddrRdrUU
 Swarm
-Step: 131, Weight: 550, Node: 7975, Time: 859.62 ms, Memory: 2.56 MB
+Step: 131, Weight: 450, Node: 7975, Time: 1248.50 ms, Memory: 2.56 MB
 uuulldLrurrdddlllUlUluRRRRRRurDDDuulldddddrruruLLrddlluUllluUluRRRRRurDDDuulllldlddrrrddrruruLuuulldDDDuuuurrdddLruuulllldlddrrdrUU
 Convergent Swarm
-Step: 155, Weight: 648, Node: 3122, Time: 342.55 ms, Memory: 0.98 MB
+Step: 155, Weight: 530, Node: 3122, Time: 404.30 ms, Memory: 0.98 MB
 uuulldLrurrdddlllUlUluRRRRRllllddrUluRRdlddrrruuuRurDDDDllllluuurRldlddrrrddrrUruLLrddlluUUdllluururRRurDDDDllddrrUruLuuullDDDDuuuurrdddLruuulllldlddrrdrUU
