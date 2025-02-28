@@ -847,8 +847,9 @@ def write_result_to_output(level):
 
 def write_result_to_output_for_list():
     start_level = 0
-    end_level = 0
+    end_level = 17
     for level in range(start_level, end_level + 1):
+        print(f"Level {level}")
         level = int(level)
         path_input = (
             f"./input/input-0{level}.txt"
@@ -864,6 +865,7 @@ def write_result_to_output_for_list():
         algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
         file = open(path_output, "w")
         for i in range(len(algo)):
+            print(f"Algorithm: {name_algo[i]}")
             file.write(f"{name_algo[i]}\n")
             result = algo[i](path_input)
             if result == "No Solution":
@@ -880,3 +882,5 @@ def write_result_to_output_for_list():
         file.close()
         print("Done!")
         print(f"Output file: {path_output}")
+
+write_result_to_output_for_list()

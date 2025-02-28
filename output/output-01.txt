@@ -1,43 +1,21 @@
 BFS
-<<<<<<< HEAD
-Step: 37, Weight: 91, Node: 478, Time: 17.11 ms, Memory: 0.07 MB
-uuluuRlddrrurruullDDullddrRlddrruUluR
+Step: 0, Weight: 0, Node: 0, Time: 0.00 ms, Memory: 0.00 MB
+
 DFS
-Step: 71, Weight: 125, Node: 136, Time: 3.02 ms, Memory: 0.05 MB
-rrruruullldlluuRlddrrrdrruuluullDDrrrddlldlluuRlluurrdrrrddllUllluurrdR
+Step: 0, Weight: 0, Node: 0, Time: 0.00 ms, Memory: 0.00 MB
+
 UCS
-Step: 37, Weight: 91, Node: 516, Time: 18.26 ms, Memory: 0.07 MB
-uuluuRlddrrruruullDDullddrRlddrruUluR
+Step: 0, Weight: 0, Node: 0, Time: 1.01 ms, Memory: 0.00 MB
+
 A*
-Step: 37, Weight: 91, Node: 163, Time: 5.99 ms, Memory: 0.04 MB
-uuluuRlddrrurruullDDullddrRlddrruUluR
+Step: 0, Weight: 0, Node: 0, Time: 0.00 ms, Memory: 0.00 MB
+
 GBFS
-Step: 41, Weight: 95, Node: 107, Time: 2.68 ms, Memory: 0.04 MB
-uuluuRlddrrurruullDDrdddlluuRurrrddllUluR
+Step: 0, Weight: 0, Node: 0, Time: 0.00 ms, Memory: 0.00 MB
+
 Swarm
-Step: 37, Weight: 91, Node: 159, Time: 5.17 ms, Memory: 0.05 MB
-uuluuRlddrrurruullDDullddrRlddrruUluR
+Step: 0, Weight: 0, Node: 0, Time: 0.00 ms, Memory: 0.00 MB
+
 Convergent Swarm
-Step: 41, Weight: 95, Node: 113, Time: 3.29 ms, Memory: 0.04 MB
-=======
-Step: 37, Weight: 91, Node: 165, Time: 15.62 ms, Memory: 0.08 MB
-uuluuRlddrrurruullDDullddrRlddrruUluR
-DFS
-Step: 71, Weight: 125, Node: 101, Time: 0.00 ms, Memory: 0.07 MB
-rrurruullldlluuRlddrrrdrruuluullDDrrrddlldlluuRlluurrdrrrddllUllluurrdR
-UCS
-Step: 37, Weight: 91, Node: 184, Time: 15.63 ms, Memory: 0.06 MB
-uuluuRlddrrruruullDDullddrRlddrruUluR
-A*
-Step: 37, Weight: 91, Node: 114, Time: 0.00 ms, Memory: 0.05 MB
-uuluuRlddrrurruullDDullddrRlddrruUluR
-GBFS
-Step: 41, Weight: 95, Node: 74, Time: 0.00 ms, Memory: 0.04 MB
-uuluuRlddrrurruullDDrdddlluuRurrrddllUluR
-Swarm
-Step: 37, Weight: 91, Node: 107, Time: 0.00 ms, Memory: 0.05 MB
-uuluuRlddrrurruullDDullddrRlddrruUluR
-Convergent Swarm
-Step: 41, Weight: 95, Node: 77, Time: 15.62 ms, Memory: 0.05 MB
->>>>>>> 252d12ad096ee75bf7e23931291b8216e0cbeb76
-uuluuRlddrrurruullDDrdddlluuRurrrddllUluR
+Step: 0, Weight: 0, Node: 0, Time: 0.00 ms, Memory: 0.00 MB
+
