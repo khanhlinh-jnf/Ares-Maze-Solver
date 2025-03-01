@@ -10,8 +10,7 @@ Switch = "."
 Space = " "
 Stone = "$"
 Wall = "#"
-Swarm_w = 1.5
-Convergent_Swarm_w = 20
+weighted_astar_w = 5
 
 
 def load_maze(file_path):
@@ -47,7 +46,6 @@ def load_maze(file_path):
                     index = index + 1
     return ares_position, stone_positions, switch_positions, index_wall
 
-
 def check_deadlock(new_stones, index_wall, switch_positions):
     dirs = [(-1, -1), (-1, 1), (1, -1), (1, 1)]
     for stone in new_stones:
@@ -65,53 +63,22 @@ def check_deadlock(new_stones, index_wall, switch_positions):
             if (i + di, j) in index_wall and (i, j + dj) in index_wall:
                 return True
 
-            # if (i + di, j) in new_stones and (i, j + dj) in new_stones:
-            #     if (i - di, j + dj) in index_wall and (
-            #         i + di,
-            #         j - dj,
-            #     ) in index_wall:
-            #         return True
-
-            # if (i, j + dj) in new_stones and (i + di, j) in index_wall:
-            #     if (i - di, j + dj) in index_wall:
-            #         return True
-
-            # if (i, j + dj) in index_wall and (i + di, j) in new_stones:
-            #     if (i + di, j - dj) in index_wall:
-            #         return True
     return False
-
 
 def calculate_heuristics(new_stones, new_x, new_y, switch_positions):
     total_heuristic = 0
     distance_ares_to_stone_min = 1e10
-    pq = q.PriorityQueue()
-
-    for i, j, w in new_stones:
-        distance_ares_to_stone = abs(new_x - i) + abs(new_y - j)
+    for stone in new_stones:
+        i, j, w = stone
         distance_ares_to_stone_min = min(
-            distance_ares_to_stone_min, distance_ares_to_stone
+            distance_ares_to_stone_min, abs(new_x - i) + abs(new_y - j)
         )
-        pq.put((-w, (i, j)))  # Corrected line
+        cost = 1e9
+        for switch in switch_positions:
+            cost = min(cost, abs(i - switch[0]) + abs(j - switch[1]))
+        total_heuristic += cost * w
 
-    distance_ares_to_stone_min = distance_ares_to_stone_min - 1
-
-    used = set()
-    while not pq.empty():
-        value, (i, j) = pq.get()  # Corrected line
-        dis = 1e10
-        m, n = -1, -1
-        for x, y in switch_positions:
-            if (x, y) in used:
-                continue
-            res = abs(i - x) + abs(j - y)
-            if res < dis:
-                dis = res
-                m, n = x, y
-        total_heuristic += -value * dis
-        used.add((m, n))
-
-    return total_heuristic + distance_ares_to_stone_min
+    return total_heuristic + distance_ares_to_stone_min - 1
 
 
 def bfs(file_path):
@@ -614,7 +581,7 @@ def gbfs(file_path):
 
     return "No Solution"
 
-def swarm(file_path):
+def weighted_astar(file_path):
     ares_position, stone_positions, switch_positions, index_wall = load_maze(file_path)
     start_time = time.time()
     trlloc.start()
@@ -698,7 +665,7 @@ def swarm(file_path):
                         new_cost
                         + calculate_heuristics(
                             new_stones, new_x, new_y, switch_positions
-                        )*Swarm_w,
+                        )*weighted_astar_w,
                         (
                             (new_x, new_y),
                             frozenset(new_stones),
@@ -709,103 +676,6 @@ def swarm(file_path):
                 )
 
     return "No Solution"
-
-def convergent_swarm(file_path):
-    ares_position, stone_positions, switch_positions, index_wall = load_maze(file_path)
-    start_time = time.time()
-    trlloc.start()
-    nodes_explored = 0
-    frontier = q.PriorityQueue()
-    frontier.put((0, (ares_position, frozenset(stone_positions), "", 0)))
-    explored = set()
-    while not frontier.empty():
-        if (time.time() - start_time) >= OVERTIME:
-            return "TimeOut"
-
-        (ax, ay), stones, path, cost = frontier.get()[1]
-
-        set_of_stones = set()
-        for stone in stones:
-            i, j, w = stone
-            set_of_stones.add((i, j))
-
-        if set_of_stones == switch_positions:
-            end_time = time.time()
-            _, memory = trlloc.get_traced_memory()
-            trlloc.stop()
-            step_not_push_stone = 0
-            for c in path:
-                if c.islower():
-                    step_not_push_stone += 1
-            return {
-                "Step": len(path),
-                "Weight": cost - step_not_push_stone,
-                "Node": nodes_explored,
-                "Path": path,
-                "Time": "{:.2f}".format(1000 * (end_time - start_time)),
-                "Memory": "{:.2f}".format(memory / (1024 * 1024)),
-            }
-
-        if (ax, ay, stones) in explored:
-            continue
-        explored.add((ax, ay, stones))
-        nodes_explored = nodes_explored + 1
-
-        for next_x, next_y, move in [
-            (-1, 0, "u"),
-            (0, -1, "l"),
-            (0, 1, "r"),
-            (1, 0, "d"),
-        ]:
-            (new_x, new_y) = (ax + next_x, ay + next_y)
-            if (new_x, new_y) in index_wall:
-                continue
-
-            new_stones = set(stones)
-            new_path = path
-            new_cost = cost
-
-            stone_weight = 0
-            if (new_x, new_y) in set_of_stones:
-                (new_stone_x, new_stone_y) = (new_x + next_x, new_y + next_y)
-                if (new_stone_x, new_stone_y) in index_wall or (
-                    new_stone_x,
-                    new_stone_y,
-                ) in set_of_stones:
-                    continue
-
-                for stone in stones:
-                    i, j, w = stone
-                    if i == new_x and j == new_y:
-                        stone_weight = w
-                        break
-
-                new_cost += stone_weight
-                new_stones.add((new_stone_x, new_stone_y, stone_weight))
-                new_stones.remove((new_x, new_y, stone_weight))
-                move = move.upper()
-            else:
-                new_cost += 1
-            new_path = new_path + move
-
-            if not check_deadlock(set_of_stones, index_wall, switch_positions):
-                frontier.put(
-                    (
-                        new_cost
-                        + calculate_heuristics(
-                            new_stones, new_x, new_y, switch_positions
-                        )*Convergent_Swarm_w,
-                        (
-                            (new_x, new_y),
-                            frozenset(new_stones),
-                            new_path,
-                            new_cost,
-                        ),
-                    )
-                )
-
-    return "No Solution"
-
 
 def write_result_to_output(level):
     level = int(level)
@@ -817,8 +687,8 @@ def write_result_to_output(level):
         if level < 10
         else f"./output/output-{level}.txt"
     )
-    name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
-    algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
+    name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Weighted A*"]
+    algo = [bfs, dfs, ucs, astar, gbfs, weighted_astar]
     file = open(path_output, "w")
     for i in range(len(algo)):
         file.write(f"{name_algo[i]}\n")
@@ -838,7 +708,6 @@ def write_result_to_output(level):
     print("Done!")
     print(f"Output file: {path_output}")
 
-
 def write_result_to_output_for_list():
     start_level = 0
     end_level = 0
@@ -854,8 +723,8 @@ def write_result_to_output_for_list():
             if level < 10
             else f"./output/output-{level}.txt"
         )
-        name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
-        algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
+        name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Weighted A*"]
+        algo = [bfs, dfs, ucs, astar, gbfs, weighted_astar]
         file = open(path_output, "w")
         for i in range(len(algo)):
             file.write(f"{name_algo[i]}\n")

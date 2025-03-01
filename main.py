@@ -12,7 +12,7 @@ def main():
     pygame.mixer.init()
     pygame.mixer.music.load("assets\\background_music.mp3") 
     pygame.mixer.music.play(-1) 
-    pygame.mixer.music.set_volume(0)
+    pygame.mixer.music.set_volume(0.1)
     pygame.display.set_caption("Ares's Adventure")
     firstLogin = True
 
@@ -159,7 +159,7 @@ def main():
                         pygame.display.flip()
                         game.reset(reset_matrix)
 
-                        output = swarm(file_path)
+                        output = weighted_astar(file_path)
                         flagAuto = True
                         flagSolve = 1
                         if output == "No Solution":

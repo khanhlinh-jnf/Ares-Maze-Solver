@@ -67,7 +67,7 @@ def CheckValidNumber(str):
     for i in str:
         if i < "0" or i > "9":
             return False
-    if int(str) > 17:
+    if int(str) > 15:
         return False
     return True
 
@@ -133,8 +133,8 @@ def display_information(screen, msg):
         message = "A* is running"
     elif msg == "GBFS":
         message = "GBFS is running"
-    elif msg == "Swarm":
-        message = "Swarm is running"
+    elif msg == "WA":
+        message = "W_Astar is running"
     elif msg == "Output":
         message = "Writing result to file at folder"
 
@@ -200,7 +200,7 @@ def display_footer(width, offset, footer_height, screen):
     options = [
         "Choose algorithm:                         Intruction:",
         "[1] BFS   [2] DFS     [3] UCS        [q] quit  [o] get output  [r] reset",
-        "[4] A*     [5] GBFS   [6] Swarm     [p] pause/continue aminimation",
+        "[4] A*     [5] GBFS   [6] WA*        [p] pause/continue aminimation",
     ]
 
     # Render text
