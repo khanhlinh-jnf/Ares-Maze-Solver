@@ -80,7 +80,6 @@ def calculate_heuristics(new_stones, new_x, new_y, switch_positions):
 
     return total_heuristic + distance_ares_to_stone_min - 1
 
-
 def bfs(file_path):
     ares_position, stone_positions, switch_positions, index_wall = load_maze(file_path)
     start_time = time.time()
@@ -401,13 +400,13 @@ def astar(file_path):
     trlloc.start()
     nodes_explored = 0
     frontier = q.PriorityQueue()
-    frontier.put((0, (ares_position, frozenset(stone_positions), "", 0)))
+    frontier.put((0, 0, (ares_position, frozenset(stone_positions), "", 0)))
     explored = set()
     while not frontier.empty():
         if (time.time() - start_time) >= OVERTIME:
             return "TimeOut"
 
-        (ax, ay), stones, path, cost = frontier.get()[1]
+        (ax, ay), stones, path, cost = frontier.get()[2]
 
         set_of_stones = set()
         for stone in stones:
@@ -474,9 +473,14 @@ def astar(file_path):
             new_path = new_path + move
 
             if not check_deadlock(set_of_stones, index_wall, switch_positions):
+                step_not_push_stone = 0
+                for c in path:
+                    if c.islower():
+                        step_not_push_stone += 1
                 frontier.put(
                     (
                         new_cost+calculate_heuristics(new_stones, new_x, new_y, switch_positions),
+                        new_cost - step_not_push_stone,
                         (
                             (new_x, new_y),
                             frozenset(new_stones),
@@ -587,13 +591,13 @@ def weighted_astar(file_path):
     trlloc.start()
     nodes_explored = 0
     frontier = q.PriorityQueue()
-    frontier.put((0, (ares_position, frozenset(stone_positions), "", 0)))
+    frontier.put((0, 0, (ares_position, frozenset(stone_positions), "", 0)))
     explored = set()
     while not frontier.empty():
         if (time.time() - start_time) >= OVERTIME:
             return "TimeOut"
 
-        (ax, ay), stones, path, cost = frontier.get()[1]
+        (ax, ay), stones, path, cost = frontier.get()[2]
 
         set_of_stones = set()
         for stone in stones:
@@ -660,12 +664,18 @@ def weighted_astar(file_path):
             new_path = new_path + move
 
             if not check_deadlock(set_of_stones, index_wall, switch_positions):
+                step_not_push_stone = 0
+                for c in path:
+                    if c.islower():
+                        step_not_push_stone += 1
                 frontier.put(
                     (
                         new_cost
                         + calculate_heuristics(
                             new_stones, new_x, new_y, switch_positions
                         )*weighted_astar_w,
+                        new_cost - step_not_push_stone,
+
                         (
                             (new_x, new_y),
                             frozenset(new_stones),
