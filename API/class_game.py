@@ -58,7 +58,7 @@ class Game:
         for row in self.matrix:
             if len(row) > x:
                 x = len(row)
-        return (x * element_size, y * element_size)
+        return ((x-1) * element_size, y * element_size)
 
     def reset(self, original_matrix):
         self.matrix = copy.deepcopy(original_matrix)

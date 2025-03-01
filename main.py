@@ -15,6 +15,7 @@ def main():
     pygame.mixer.music.set_volume(0.1)
     pygame.display.set_caption("Ares's Adventure")
     firstLogin = True
+    music = True
 
     # Check valid level
     while True:
@@ -87,6 +88,13 @@ def main():
                     pygame.display.flip()
                 elif event.key == pygame.K_p:
                     flagAuto = 1 - flagAuto  # pause
+                elif event.key == pygame.K_m:
+                    if music:
+                        pygame.mixer.music.pause()
+                        music = False
+                    else:
+                        pygame.mixer.music.unpause()
+                        music = True
                 elif sol != "No Solution" and sol != "TimeOut" and sol != "Complete" and flagSolve == 0:
                     if event.key == pygame.K_1:
                         display_information(screen,"BFS")

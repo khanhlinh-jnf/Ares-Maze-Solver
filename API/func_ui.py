@@ -12,9 +12,6 @@ switch = pygame.image.load("assets\\resources\switch.png")
 background = 240, 210, 225
 
 
-# def CheckValidLevel(level):
-#     for i in level:
-#         if i 
 
 def GetKey():
     while 1:
@@ -41,7 +38,7 @@ def DisplayBox(screen, message, firstLogin):
     screen.blit(fontobject.render(message, 1, (255,255,255)),
                 ((screen.get_width() / 2) - 100, (screen.get_height() / 2) - 10))
     if not firstLogin:
-        screen.blit(fontobject.render("Enter valid number", 1, (255,255,255)),
+        screen.blit(fontobject.render("Please enter number from 0-15", 1, (255,255,255)),
             ((screen.get_width() / 2) - 100, (screen.get_height() / 2) + 10))
   pygame.display.flip()
 
@@ -67,7 +64,7 @@ def CheckValidNumber(str):
     for i in str:
         if i < "0" or i > "9":
             return False
-    if int(str) > 15:
+    if int(str) > 15 or int(str) < 0:
         return False
     return True
 
@@ -198,9 +195,9 @@ def display_footer(width, offset, footer_height, screen):
     footer.fill((255, 255, 255))
 
     options = [
-        "Choose algorithm:                         Intruction:",
-        "[1] BFS   [2] DFS     [3] UCS        [q] quit  [o] get output  [r] reset",
-        "[4] A*     [5] GBFS   [6] WA*        [p] pause/continue aminimation",
+        "Choose algorithm:                                    Instruction:",
+        "[1] BFS   [2] DFS     [3] UCS                   [q] quit  [o] get output  [r] reset  [m] mute/unmute music",
+        "[4] A*     [5] GBFS   [6] Weighted A*        [p] pause/continue aminimation",
     ]
 
     # Render text
