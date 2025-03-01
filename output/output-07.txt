@@ -1,21 +1,18 @@
 BFS
-Step: 31, Weight: 180, Node: 2049, Time: 348.28 ms, Memory: 0.60 MB
+Step: 31, Weight: 180, Node: 2049, Time: 346.02 ms, Memory: 0.61 MB
 uRdrUUluRRRRRRRRurDDldRRurDDldR
 DFS
-Step: 265, Weight: 300, Node: 1403, Time: 371.74 ms, Memory: 0.56 MB
+Step: 265, Weight: 300, Node: 1403, Time: 272.62 ms, Memory: 0.56 MB
 drurururrullldlDrdLdlUdluuRRdrUdldllururuRdrUdldldllurururuRddldldllurururuurrrddlUdruuLddldldldllurururuuRRddldldldllururururuurrDldRRRdrrdrdrdrrulululululDrddrdrdrrulululuulllddRRdrdrdrrululuLdlUdrdrdrrulululuulldRdllururrDDrullddRdrdrruluulDrullddRdrruulDrullddR
 UCS
-Step: 31, Weight: 180, Node: 2329, Time: 300.57 ms, Memory: 0.64 MB
+Step: 31, Weight: 180, Node: 2329, Time: 370.72 ms, Memory: 0.64 MB
 uRdrUUluRRRRRRRRurDDldRRurDDldR
 A*
-Step: 31, Weight: 180, Node: 965, Time: 768.71 ms, Memory: 0.29 MB
+Step: 31, Weight: 180, Node: 965, Time: 192.54 ms, Memory: 0.30 MB
 uRdrUUluRRRRRRRRurDDldRRurDDldR
 GBFS
-Step: 35, Weight: 180, Node: 279, Time: 112.35 ms, Memory: 0.10 MB
+Step: 35, Weight: 180, Node: 279, Time: 48.90 ms, Memory: 0.10 MB
 uRdrUluRdrUluRRRRRRRurDDldRRurDDldR
-Swarm
-Step: 35, Weight: 180, Node: 522, Time: 186.11 ms, Memory: 0.17 MB
-uRdrUluRdrUluRRRRRRRurDDldRRurDDldR
-Convergent Swarm
-Step: 35, Weight: 180, Node: 355, Time: 115.15 ms, Memory: 0.14 MB
+Weight A*
+Step: 35, Weight: 180, Node: 355, Time: 69.04 ms, Memory: 0.14 MB
 uRdrUluRdrUluRRRRRRRurDDldRRurDDldR

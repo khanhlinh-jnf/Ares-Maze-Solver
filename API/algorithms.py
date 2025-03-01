@@ -422,13 +422,7 @@ def ucs(file_path):
             if not check_deadlock(set_of_stones, index_wall, switch_positions):
                 frontier.put(
                     (
-                        new_cost,
-                        (
-                            (new_x, new_y),
-                            frozenset(new_stones),
-                            new_path,
-                            new_cost,
-                        ),
+                        new_cost,((new_x, new_y), frozenset(new_stones), new_path, new_cost, ),
                     )
                 )
 

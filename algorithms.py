@@ -3,7 +3,7 @@ import tracemalloc as trlloc
 from collections import deque
 import queue as q
 
-OVERTIME = 300
+OVERTIME = 99999999
 
 Player = "@"
 Switch = "."
@@ -85,33 +85,17 @@ def check_deadlock(new_stones, index_wall, switch_positions):
 def calculate_heuristics(new_stones, new_x, new_y, switch_positions):
     total_heuristic = 0
     distance_ares_to_stone_min = 1e10
-    pq = q.PriorityQueue()
-
-    for i, j, w in new_stones:
-        distance_ares_to_stone = abs(new_x - i) + abs(new_y - j)
+    for stone in new_stones:
+        i, j, w = stone
         distance_ares_to_stone_min = min(
-            distance_ares_to_stone_min, distance_ares_to_stone
+            distance_ares_to_stone_min, abs(new_x - i) + abs(new_y - j)
         )
-        pq.put((-w, (i, j)))  # Corrected line
+        cost = 1e9
+        for switch in switch_positions:
+            cost = min(cost, abs(i - switch[0]) + abs(j - switch[1]))
+        total_heuristic += cost*w
 
-    distance_ares_to_stone_min = distance_ares_to_stone_min - 1
-
-    used = set()
-    while not pq.empty():
-        value, (i, j) = pq.get()  # Corrected line
-        dis = 1e10
-        m, n = -1, -1
-        for x, y in switch_positions:
-            if (x, y) in used:
-                continue
-            res = abs(i - x) + abs(j - y)
-            if res < dis:
-                dis = res
-                m, n = x, y
-        total_heuristic += -value * dis
-        used.add((m, n))
-
-    return total_heuristic + distance_ares_to_stone_min
+    return total_heuristic + distance_ares_to_stone_min - 1
 
 
 def bfs(file_path):
@@ -846,8 +830,8 @@ def write_result_to_output(level):
 
 
 def write_result_to_output_for_list():
-    start_level = 0
-    end_level = 17
+    start_level = 9
+    end_level = 9
     for level in range(start_level, end_level + 1):
         print(f"Level {level}")
         level = int(level)
@@ -861,8 +845,8 @@ def write_result_to_output_for_list():
             if level < 10
             else f"./output/output-{level}.txt"
         )
-        name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Swarm", "Convergent Swarm"]
-        algo = [bfs, dfs, ucs, astar, gbfs, swarm, convergent_swarm]
+        name_algo = ["BFS", "DFS", "UCS", "A*", "GBFS", "Weight A*"]
+        algo = [bfs, dfs, ucs, astar, gbfs, convergent_swarm]
         file = open(path_output, "w")
         for i in range(len(algo)):
             print(f"Algorithm: {name_algo[i]}")
