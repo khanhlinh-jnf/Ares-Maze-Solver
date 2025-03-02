@@ -137,7 +137,7 @@ def main():
                     solving == False
                     and sol != "No Solution"
                     and sol != "TimeOut"
-                    and sol != "Complete"
+                    and sol != "Complete" and sol == ""
                 ):
                     if event.key == pygame.K_1:
                         threading.Thread(
