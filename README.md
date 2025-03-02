@@ -9,13 +9,14 @@ Ares-Maze-Solver/
 │   ├── func_ui.py              # UI functions for rendering and interactions
 │── assets/                     # Game assets such as sounds and images
 │   ├── resources/              # Stores additional resources
-│   ├── background_music/       # Background music files
+│   ├── background_music.mp3    # Background music files
 │── input/                      # Input files (e.g., predefined mazes)
 │── output/                     # Output files (e.g., logs, results)
 │── main.py                     # Entry point of the program
 │── README.md                   # Project documentation
 │── report.pdf                  # Detailed project report
-│── requirement.txt              # Dependencies for the project
+│── requirement.txt             # Dependencies for the project
+|── demo_video.txt              # Contain video's link
 
 
 # Instruction 

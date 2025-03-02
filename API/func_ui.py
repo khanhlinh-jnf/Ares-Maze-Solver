@@ -64,7 +64,7 @@ def CheckValidNumber(str):
     for i in str:
         if i < "0" or i > "9":
             return False
-    if int(str) > 20 or int(str) < 0:
+    if int(str) > 15 or int(str) < 0:
         return False
     return True
 
