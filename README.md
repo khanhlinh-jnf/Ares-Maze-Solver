@@ -3,12 +3,20 @@ This project implements AI search algorithms to guide Ares through a challenging
 
 # Instruction 
 Clone the repository to your local workspace:
+'''bash
 git clone https://github.com/khanhlinh-jnf/Ares-Maze-Solver.git
+'''
 
 Install the required dependencies, specifically Pygame, in order to execute the program:
 pip install pygame
 
 Execute the program and begin using the application:
+'''bash
 py main.py
+'''
+or
+'''bash
+python main.py
+'''
 
-You can also refer to the accompanying video for a demonstration of how the game runs.
+You can also refer to the accompanying video for a demonstration of how the game runs and read the report for a detailed explanation of the project.
