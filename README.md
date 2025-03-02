@@ -2,20 +2,20 @@
 This project implements AI search algorithms to guide Ares through a challenging maze, pushing stones onto switches to unlock a treasure gate. The maze is modeled as a 2D grid where Ares must navigate walls, push weighted stones, and find the optimal path using some search algorithms.
 
 # Project Structure
-Ares-Maze-Solver/
-│── API/                        # Core logic and algorithm implementation
-│   ├── algorithms.py           # Search algorithms (BFS, A*, etc.)
-│   ├── class_game.py           # Game logic and main game class
-│   ├── func_ui.py              # UI functions for rendering and interactions
-│── assets/                     # Game assets such as sounds and images
-│   ├── resources/              # Stores additional resources
-│   ├── background_music.mp3    # Background music files
-│── input/                      # Input files (e.g., predefined mazes)
-│── output/                     # Output files (e.g., logs, results)
-│── main.py                     # Entry point of the program
-│── README.md                   # Project documentation
-│── report.pdf                  # Detailed project report
-│── requirement.txt             # Dependencies for the project
+Ares-Maze-Solver/  
+│── API/                        # Core logic and algorithm implementation  
+│   ├── algorithms.py           # Search algorithms (BFS, A*, etc.)  
+│   ├── class_game.py           # Game logic and main game class  
+│   ├── func_ui.py              # UI functions for rendering and interactions  
+│── assets/                     # Game assets such as sounds and images  
+│   ├── resources/              # Stores additional resources  
+│   ├── background_music.mp3    # Background music files  
+│── input/                      # Input files (e.g., predefined mazes)  
+│── output/                     # Output files (e.g., logs, results)  
+│── main.py                     # Entry point of the program  
+│── README.md                   # Project documentation  
+│── report.pdf                  # Detailed project report  
+│── requirement.txt             # Dependencies for the project  
 |── demo_video.txt              # Contain video's link
 
 
