@@ -8,7 +8,9 @@ git clone https://github.com/khanhlinh-jnf/Ares-Maze-Solver.git
 ```
 
 Install the required dependencies, specifically Pygame, in order to execute the program:
+```bash
 pip install pygame
+```
 
 Execute the program and begin using the application:
 ```bash
