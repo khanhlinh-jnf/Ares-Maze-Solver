@@ -64,7 +64,7 @@ def CheckValidNumber(str):
     for i in str:
         if i < "0" or i > "9":
             return False
-    if int(str) > 15 or int(str) < 0:
+    if int(str) > 20 or int(str) < 0:
         return False
     return True
 
@@ -133,7 +133,7 @@ def display_information(screen, msg):
     elif msg == "WA":
         message = "W_Astar is running"
     elif msg == "Output":
-        message = "Writing result to file at folder"
+        message = "Writing output! Notify in console"
 
     fontobject = pygame.font.SysFont("timesnewroman", 14)
     pygame.draw.rect(

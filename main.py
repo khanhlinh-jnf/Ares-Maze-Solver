@@ -6,8 +6,41 @@ import time
 from API.class_game import *
 from API.func_ui import *
 from API.algorithms import *
+import threading
+
+writting = False
+running_algorithm = False
+sol = ""
+output = {}
+i = 0
+flagAuto = 0
+flagSolve = 0
+solving = 0
+
+def save_output(level):
+    global writting
+    writting = True
+    write_result_to_output(level)
+    writting = False
+
+
+def run_algorithm(algo_func, file_path, game, reset_matrix):
+    global output, sol, flagAuto, flagSolve, solving
+    solving = 1
+    game.reset(reset_matrix)
+    output = algo_func(file_path)
+    flagAuto = True
+    flagSolve = 1
+    if output == "No Solution":
+        sol = "No Solution"
+    elif output == "TimeOut":
+        sol = "TimeOut"
+    else:
+        sol = output["Path"]
+    solving = 0
 
 def main():
+    global sol, i, flagAuto, flagSolve, output
     pygame.init()
     pygame.mixer.init()
     pygame.mixer.music.load("assets\\background_music.mp3") 
@@ -24,7 +57,6 @@ def main():
         if flag:
             break
 
-
     game = Game()
     game.map_open(level)
     game.GetStonesDict()
@@ -34,14 +66,11 @@ def main():
     height = game.get_height()
     header_height = 64
     footer_height = 70
-    screen = pygame.display.set_mode((width, height + header_height + footer_height))
-    sol = ""
-    output = {}
-    i = 0
-    flagAuto = 0
     flagReset = 1
     flagEnd = 0
-    flagSolve = 0
+
+    screen = pygame.display.set_mode((width, height + header_height + footer_height))
+
     reset_matrix = copy.deepcopy(game.get_matrix())
     if int(level) < 10:
         file = "input-0"+level+".txt"
@@ -82,10 +111,12 @@ def main():
                     flagEnd = 0
                     i = 0
                 elif event.key == pygame.K_o:
-                    pygame.display.flip()
-                    display_information(screen, "Output")
-                    write_result_to_output(level)
-                    pygame.display.flip()
+                    if not writting:
+                        pygame.display.flip()
+                        display_information(screen, "Output")
+                        threading.Thread(target=save_output, args=(level,)).start()
+                        time.sleep(3)
+                        pygame.display.flip()
                 elif event.key == pygame.K_p:
                     flagAuto = 1 - flagAuto  # pause
                 elif event.key == pygame.K_m:
@@ -97,85 +128,38 @@ def main():
                         music = True
                 elif sol != "No Solution" and sol != "TimeOut" and sol != "Complete" and flagSolve == 0:
                     if event.key == pygame.K_1:
-                        display_information(screen,"BFS")
-                        pygame.display.flip()
-                        game.reset(reset_matrix)
-                        output = bfs(file_path)
-                        flagAuto = True
-                        flagSolve = 1
-                        if output == "No Solution":
-                            sol = "No Solution"
-                        elif output == "TimeOut":
-                            sol = "TimeOut"
-                        else:
-                            sol = output["Path"]
+                        threading.Thread(target=run_algorithm, args=( bfs, file_path, game, reset_matrix)).start()
+                        while solving:
+                            display_information(screen, "BFS")
                     elif event.key == pygame.K_2:
-                        display_information(screen,"DFS")
-                        pygame.display.flip()
-                        game.reset(reset_matrix)
-                        output = dfs(file_path)
-                        flagAuto = True
-                        flagSolve = 1
-                        if output == "No Solution":
-                            sol = "No Solution"
-                        elif output == "TimeOut":
-                            sol = "TimeOut"
-                        else:
-                            sol = output["Path"]
+                        threading.Thread(target=run_algorithm, args=(dfs, file_path, game, reset_matrix)).start()
+                        while solving:
+                            display_information(screen, "DFS")
                     elif event.key == pygame.K_3:
-                        display_information(screen,"UCS")
-                        pygame.display.flip()
-                        game.reset(reset_matrix)
-                        output = ucs(file_path)
-                        flagAuto = True
-                        flagSolve = 1
-                        if output == "No Solution":
-                            sol = "No Solution"
-                        elif output == "TimeOut":
-                            sol = "TimeOut"
-                        else:
-                            sol = output["Path"]
+                        threading.Thread(target=run_algorithm, args=(ucs, file_path, game, reset_matrix)).start()
+                        while solving:
+                            display_information(screen, "UCS")
                     elif event.key == pygame.K_4:
-                        display_information(screen,"A*")
-                        pygame.display.flip()
-                        game.reset(reset_matrix)
-                        output = astar(file_path)
-                        flagAuto = True
-                        flagSolve = 1
-                        if output == "No Solution":
-                            sol = "No Solution"
-                        elif output == "TimeOut":
-                            sol = "TimeOut"
-                        else:
-                            sol = output["Path"]
+                        threading.Thread(
+                            target=run_algorithm,
+                            args=(astar, file_path, game, reset_matrix),
+                        ).start()
+                        while solving:
+                            display_information(screen, "A*")
                     elif event.key == pygame.K_5:
-                        display_information(screen,"GBFS")
-                        pygame.display.flip()
-                        game.reset(reset_matrix)
-
-                        output = gbfs(file_path)
-                        flagAuto = True
-                        flagSolve = 1
-                        if output == "No Solution":
-                            sol = "No Solution"
-                        elif output == "TimeOut":
-                            sol = "TimeOut"
-                        else:
-                            sol = output["Path"]
+                        threading.Thread(
+                            target=run_algorithm,
+                            args=(gbfs, file_path, game, reset_matrix),
+                        ).start()
+                        while solving:
+                            display_information(screen, "GBFS")
                     elif event.key == pygame.K_6:
-                        display_information(screen,"Swarm")
-                        pygame.display.flip()
-                        game.reset(reset_matrix)
-
-                        output = weighted_astar(file_path)
-                        flagAuto = True
-                        flagSolve = 1
-                        if output == "No Solution":
-                            sol = "No Solution"
-                        elif output == "TimeOut":
-                            sol = "TimeOut"
-                        else:
-                            sol = output["Path"]
+                        threading.Thread(
+                            target=run_algorithm,
+                            args=(weighted_astar, file_path, game, reset_matrix),
+                        ).start()
+                        while solving:
+                            display_information(screen, "WA")
                     elif event.key == pygame.K_UP:
                         game.Ares_move("U")
                     elif event.key == pygame.K_DOWN:
