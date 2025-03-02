@@ -18,8 +18,8 @@ Ares-Maze-Solver/
 │── main.py                     # Entry point of the program  
 │── README.md                   # Project documentation  
 │── report.pdf                  # Detailed project report  
-│── requirement.txt              # Dependencies for the project  
-│── demo_video.txt               # Contains video link  
+│── requirement.txt             # Dependencies for the project  
+│── demo_video.txt              # Contains video link  
 ```
 
 
