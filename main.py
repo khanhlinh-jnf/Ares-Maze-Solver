@@ -9,13 +9,14 @@ from API.algorithms import *
 import threading
 
 writting = False
-running_algorithm = False
+solving = False
 sol = ""
 output = {}
 i = 0
 flagAuto = 0
 flagSolve = 0
-solving = 0
+name_algo = ""
+
 
 def save_output(level):
     global writting
@@ -24,11 +25,14 @@ def save_output(level):
     writting = False
 
 
-def run_algorithm(algo_func, file_path, game, reset_matrix):
-    global output, sol, flagAuto, flagSolve, solving
-    solving = 1
+def run_algorithm(algo_name, algo_func, file_path, game, reset_matrix, screen):
+    global output, sol, flagAuto, flagSolve, name_algo, solving
+    name_algo = algo_name
+    solving = True
+    display_information(screen, algo_name)
     game.reset(reset_matrix)
     output = algo_func(file_path)
+    pygame.display.flip()
     flagAuto = True
     flagSolve = 1
     if output == "No Solution":
@@ -37,14 +41,15 @@ def run_algorithm(algo_func, file_path, game, reset_matrix):
         sol = "TimeOut"
     else:
         sol = output["Path"]
-    solving = 0
+    solving = False
+
 
 def main():
-    global sol, i, flagAuto, flagSolve, output
+    global sol, i, flagAuto, flagSolve, output, name_algo, solving
     pygame.init()
     pygame.mixer.init()
-    pygame.mixer.music.load("assets\\background_music.mp3") 
-    pygame.mixer.music.play(-1) 
+    pygame.mixer.music.load("assets\\background_music.mp3")
+    pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.1)
     pygame.display.set_caption("Ares's Adventure")
     firstLogin = True
@@ -73,34 +78,36 @@ def main():
 
     reset_matrix = copy.deepcopy(game.get_matrix())
     if int(level) < 10:
-        file = "input-0"+level+".txt"
+        file = "input-0" + level + ".txt"
     else:
-        file = "input-"+level+".txt"
+        file = "input-" + level + ".txt"
     file_path = os.path.join("input", file)
 
-    while True :
-        print_game(game.get_matrix(),screen, header_height)
+    while True:
+        print_game(game.get_matrix(), screen, header_height)
 
         display_footer(width, height + header_height, footer_height, screen)
         if flagEnd:
             display_header_final(width, header_height, screen, output)
         else:
-            display_header(width, header_height, screen, game.get_step(), game.get_weight())
+            display_header(
+                width, header_height, screen, game.get_step(), game.get_weight()
+            )
 
         if sol == "No Solution":
-            display_information(screen,"Cannot")
+            display_information(screen, "Cannot")
             flagAuto = 0
         if sol == "TimeOut":
-            display_information(screen,"Out")
+            display_information(screen, "Out")
             flagAuto = 0
         if game.is_completed():
-            display_information(screen,"Done")
+            display_information(screen, "Done")
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: 
+            if event.type == pygame.QUIT:
                 sys.exit(0)
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q: 
+            elif event.type == pygame.KEYDOWN and writting == False:
+                if event.key == pygame.K_q:
                     sys.exit(0)
                 elif event.key == pygame.K_r:
                     game.reset(reset_matrix)
@@ -112,12 +119,12 @@ def main():
                     i = 0
                 elif event.key == pygame.K_o:
                     if not writting:
-                        pygame.display.flip()
-                        display_information(screen, "Output")
-                        threading.Thread(target=save_output, args=(level,)).start()
-                        time.sleep(3)
-                        pygame.display.flip()
+                        threading.Thread(
+                            target=save_output, args=(level,), daemon=True
+                        ).start()
                 elif event.key == pygame.K_p:
+                    if sol == "Complete":
+                        continue
                     flagAuto = 1 - flagAuto  # pause
                 elif event.key == pygame.K_m:
                     if music:
@@ -126,40 +133,55 @@ def main():
                     else:
                         pygame.mixer.music.unpause()
                         music = True
-                elif sol != "No Solution" and sol != "TimeOut" and sol != "Complete" and flagSolve == 0:
+                elif (
+                    solving == False
+                    and sol != "No Solution"
+                    and sol != "TimeOut"
+                    and sol != "Complete"
+                ):
                     if event.key == pygame.K_1:
-                        threading.Thread(target=run_algorithm, args=( bfs, file_path, game, reset_matrix)).start()
-                        while solving:
-                            display_information(screen, "BFS")
+                        threading.Thread(
+                            target=run_algorithm,
+                            args=("BFS", bfs, file_path, game, reset_matrix, screen),
+                            daemon=True,
+                        ).start()
                     elif event.key == pygame.K_2:
-                        threading.Thread(target=run_algorithm, args=(dfs, file_path, game, reset_matrix)).start()
-                        while solving:
-                            display_information(screen, "DFS")
+                        threading.Thread(
+                            target=run_algorithm,
+                            args=("DFS", dfs, file_path, game, reset_matrix, screen),
+                            daemon=True,
+                        ).start()
                     elif event.key == pygame.K_3:
-                        threading.Thread(target=run_algorithm, args=(ucs, file_path, game, reset_matrix)).start()
-                        while solving:
-                            display_information(screen, "UCS")
+                        threading.Thread(
+                            target=run_algorithm,
+                            args=("UCS", ucs, file_path, game, reset_matrix, screen),
+                            daemon=True,
+                        ).start()
                     elif event.key == pygame.K_4:
                         threading.Thread(
                             target=run_algorithm,
-                            args=(astar, file_path, game, reset_matrix),
+                            args=("A*", astar, file_path, game, reset_matrix, screen),
+                            daemon=True,
                         ).start()
-                        while solving:
-                            display_information(screen, "A*")
                     elif event.key == pygame.K_5:
                         threading.Thread(
                             target=run_algorithm,
-                            args=(gbfs, file_path, game, reset_matrix),
+                            args=("GBFS", gbfs, file_path, game, reset_matrix, screen),
+                            daemon=True,
                         ).start()
-                        while solving:
-                            display_information(screen, "GBFS")
                     elif event.key == pygame.K_6:
                         threading.Thread(
                             target=run_algorithm,
-                            args=(weighted_astar, file_path, game, reset_matrix),
+                            args=(
+                                "WA",
+                                weighted_astar,
+                                file_path,
+                                game,
+                                reset_matrix,
+                                screen,
+                            ),
+                            daemon=True,
                         ).start()
-                        while solving:
-                            display_information(screen, "WA")
                     elif event.key == pygame.K_UP:
                         game.Ares_move("U")
                     elif event.key == pygame.K_DOWN:
@@ -170,13 +192,13 @@ def main():
                         game.Ares_move("R")
 
         if (flagAuto) and (i < len(sol)):
-            if (i==0):
+            if i == 0:
                 flagEnd = 0
                 game.reset(reset_matrix)
                 time.sleep(0.5)
-            playByBot(game,sol[i].upper())
+            playByBot(game, sol[i].upper())
             i += 1
-            if i == len(sol): 
+            if i == len(sol):
                 flagEnd = 1
                 flagAuto = 0
                 i = 0
@@ -184,7 +206,14 @@ def main():
                 sol = "Complete"
             time.sleep(0.1)
 
+        if solving:
+            display_information(screen, name_algo)
+            continue
+        if writting:
+            display_information(screen, "Output")
+            continue
         pygame.display.update()
+
 
 if __name__ == "__main__":
     main()
