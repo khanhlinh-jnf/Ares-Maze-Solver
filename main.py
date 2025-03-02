@@ -118,6 +118,8 @@ def main():
                     flagEnd = 0
                     i = 0
                 elif event.key == pygame.K_o:
+                    if sol == "Complete" or sol == "No Solution" or sol == "TimeOut" or sol != "":
+                        continue
                     if not writting:
                         threading.Thread(
                             target=save_output, args=(level,), daemon=True
