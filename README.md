@@ -16,7 +16,7 @@ Ares-Maze-Solver/
 │── README.md                   # Project documentation  
 │── report.pdf                  # Detailed project report  
 │── requirement.txt             # Dependencies for the project  
-|── demo_video.txt              # Contain video's link
+│── demo_video.txt              # Contain video's link
 
 
 # Instruction 
